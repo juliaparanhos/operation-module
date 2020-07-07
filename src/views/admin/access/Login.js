@@ -19,6 +19,7 @@ CardTitle
 import {Link, withRouter} from "react-router-dom";
 import api from "api/api.js";
 import SweetAlert from 'react-bootstrap-sweetalert';
+import $ from "jquery";
 import imag from "assets/img/brand/planoa.png"
 
 
@@ -39,18 +40,20 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let dataToSend = {
-      userdata: {
+      
         email: this.state.email,
         password: this.state.password
-      }
+    
     };
     console.log(JSON.stringify(dataToSend))
     fetch('http://op.aurora.planoaeventos.com.br/api/auth/login', {
-      credentials: 'include',
+      //credentials: 'include',
       method: 'POST',
       body: JSON.stringify(dataToSend),
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer' +  'operation_token',
       },
     })
     .then(response => response.json())

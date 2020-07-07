@@ -77,10 +77,12 @@ class ViewStaffs extends React.Component{
                                             <th>Nome</th>
                                             <th>Telefone</th>
                                             <th>Email</th>
+                                            <th></th>
                                         </tr>
                                         
                                     </thead>
                                     <tbody>
+                                        
                                         
                                             {
                                                 Object.keys(staffs).map((staff,i) => (
@@ -94,8 +96,26 @@ class ViewStaffs extends React.Component{
                                                             <td  key={ind}>{nome.name}</td>
                                                             <td  key={ind}>---</td>
                                                             <td  key={ind}>{nome.email}</td>
+                                                            <td>
+                                                             {
+                                                                Object.keys(projects).map((project,i) => (
+                                                                    
+                                                                <div key={i}>
+                                                                    {projects[project].map((use)=>
+                                                                        <Link  to={{pathname: `/admin/projetos/${use.slug}/staffs/${nome.id}`}}>
+                                                                            <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
+                                                                                <i className="ni ni-bold-right"/>
+                                                                            </Button>
+                                                                        </Link> 
+                                                                    )}
+                                                                </div> 
+                                                                
+                                                                ))
+                                                            }
+                                                            </td>
                                                         </tr>
                                                     )}
+                                                    
                                                 </> 
                                                 
                                                 ))

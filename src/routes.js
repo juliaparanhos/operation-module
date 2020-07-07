@@ -5,6 +5,7 @@ import Login from "views/admin/access/Login.js";
 import CreateProject from "views/admin/Create_project.js";
 import viewProject from "views/admin/viewproject/viewProject";
 import ViewStaffs from "views/admin/staffs/ViewStaffs.js";
+import StaffsDetails from "views/admin/staffs/StaffDetails.js";
 
 var routes = [
   {
@@ -24,6 +25,11 @@ var routes = [
   {
     path: "/novo-projeto",
     component: CreateProject,
+    layout: "/admin"
+  },
+  {
+    path: "/projetos/:slug/staffs/:id",
+    component: StaffsDetails,
     layout: "/admin"
   },
   {
