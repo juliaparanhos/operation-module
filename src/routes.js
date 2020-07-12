@@ -2,12 +2,21 @@
 import Index from "views/home/Index.js";
 import Register from "views/admin/access/Register.js";
 import Login from "views/admin/access/Login.js";
+import LoginStaff from "views/staff/access/Login_Staff.js";
 import CreateProject from "views/admin/Create_project.js";
 import viewProject from "views/admin/viewproject/viewProject";
 import ViewStaffs from "views/admin/staffs/ViewStaffs.js";
 import StaffsDetails from "views/admin/staffs/StaffDetails.js";
+import Products from "views/admin/stock/Products.js"; 
+import StockIndex from "views/admin/stock/Index.js";
+import NotFound from "notfound.js"
 
 var routes = [
+  {
+    path: "/not-found",
+    component: NotFound,
+    layout: "/auth"
+  },
   {
     path: "/index",
     name: "Home",
@@ -23,8 +32,23 @@ var routes = [
     layout: "/auth"
   },
   {
+    path: "/:slug/login",
+    component: LoginStaff,
+    layout: "/auth"
+  },
+  {
+    path: "/projetos/:slug/estoque",
+    component: StockIndex,
+    layout: "/admin"
+  },
+  {
     path: "/novo-projeto",
     component: CreateProject,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/produtos",
+    component: Products,
     layout: "/admin"
   },
   {

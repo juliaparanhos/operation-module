@@ -8,13 +8,8 @@ import "assets/scss/argon-dashboard-react.scss";
 
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
-//import {isAuthenticated} from "api/auth";
-
-
-const Private = props => {
-  const isAuthenticated =!!localStorage.getItem('operation-token')
-  return isAuthenticated ? <Route {...props}/> : <Redirect to="/auth/login"/>
-}
+import StaffLayout from "layouts/Staff.js";
+import PrivateRoute from "api/auth";
 
 
 ReactDOM.render(
@@ -22,8 +17,9 @@ ReactDOM.render(
     <Switch>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/auth" render={props => <AuthLayout {...props} />} />
+      <Route path="/staff" render={props => <StaffLayout {...props}/>}/>
       <Redirect from="/" to="/auth/login" />
-      <Private path="/admin/index" render={props => <AdminLayout {...props} />}/>
+      <PrivateRoute exact path="/admin/index" render={props => <AdminLayout {...props} />}/>
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

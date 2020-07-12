@@ -22,12 +22,16 @@ class ViewStaffs extends React.Component{
           api.get('/projects').then(res => {
           console.log(res.data)
           this.setState({projects: res.data})
+          if (res.ok){
+            return res.json();
+          }
          Object.keys(this.state.projects).map((project,i) => (
                 <div key={i}>
                     {this.state.projects[project].map((nome,ind)=>
                         api.get(`/p/${nome.slug}/staffs`).then(res => {
                             console.log(res.data)
                             this.setState({staffs: res.data})
+                          
                         })
                     )}
                 </div>                
@@ -87,7 +91,8 @@ class ViewStaffs extends React.Component{
                                             {
                                                 Object.keys(staffs).map((staff,i) => (
                                                     
-                                                <> {/*div key={i}*/}
+                                                <> 
+                                                <div key={i}>
                                                     {staffs[staff].map((nome,ind)=>
                                                         <tr  className="text-center" key={ind}>
                                                             <td  key={ind}>---</td>
@@ -115,7 +120,7 @@ class ViewStaffs extends React.Component{
                                                             </td>
                                                         </tr>
                                                     )}
-                                                    
+                                                   </div> 
                                                 </> 
                                                 
                                                 ))

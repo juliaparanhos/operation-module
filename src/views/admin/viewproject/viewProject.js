@@ -67,7 +67,19 @@ class viewProject extends React.Component{
                                     <CardBody>
                                         <CardTitle className="text-uppercase"> Operação</CardTitle>
                                         <div className="text-center">
-                                            <Button className="btn-success">Atualizar</Button>
+                                        {
+                                            Object.keys(projects).map((project,i) => (
+                                                
+                                            <div key={i}>
+                                                {projects[project].map((nome,ind)=>
+                                                    <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/estoque`}}>
+                                                        <Button className="btn-success">Atualizar</Button>
+                                                    </Link>
+                                                )}
+                                            </div> 
+                                            
+                                            ))
+                                        }
                                         </div> 
                                     </CardBody>
                             </Card>
@@ -85,7 +97,7 @@ class viewProject extends React.Component{
                                             <div key={i}>
                                                 {projects[project].map((nome,ind)=>
                                                     <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/staffs`}}>
-                                                        <Button className="btn-secondary">Atualizar</Button>
+                                                        <Button className="btn-success">Atualizar</Button>
                                                     </Link>
                                                 )}
                                             </div> 

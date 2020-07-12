@@ -26,7 +26,8 @@ class Index extends React.Component {
       api.get('/projects').then(res => {
       console.log(res.data)
       this.setState({projects: res.data})
-    })
+      return res;
+    }) 
     this.state = {
       projects: [],
       isLoading: false,
