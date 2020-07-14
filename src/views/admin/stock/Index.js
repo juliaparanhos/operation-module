@@ -7,6 +7,13 @@ Card,
 CardHeader,
 CardBody,
 Table,
+Navbar,
+Nav,
+Media,
+DropdownItem,
+DropdownToggle,
+UncontrolledDropdown,
+DropdownMenu,
 Container,
 Row,
 Col,
@@ -61,38 +68,84 @@ class StockIndex extends React.Component{
                                     
                                 <div key={i}>
                                     {projects[project].map((nome,ind)=>
-                                        <CardTitle className="font-weight-light" tag="h1" key={ind}>Estoque - {nome.name} &nbsp;
-                                            <Button size="sm" className="btn-info icon-shape text-white border rounded-circle">
-                                                    <i className="ni ni-fat-add"/>
-                                            </Button>
+                                        <CardTitle className="font-weight-light" tag="h1" key={ind}>
+                                            Estoque - {nome.name} &nbsp;
                                         </CardTitle>
                                     )}
                                 </div> 
                                 
                                 ))
                              }
-                                <Table hover responsive>
-                                    <thead>
-                                        <tr className="text-center" >
-                                            <th>ID</th>
-                                            <th>Nome</th>
-                                            <th>Consumivel</th>
-                                            <th>Qtd</th>
-                                            <th>Check Out</th>
-                                            <th>Check In</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr className="text-center text-dark">
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
+                                <Row className="justify-content-around"> 
+                                    
+                                <UncontrolledDropdown>
+                                        <DropdownToggle color="primary">
+                                                Produtos
+                                        </DropdownToggle>
+                                        <DropdownMenu className="dropdown-menu-arrow" right>
+                                            <DropdownItem className="noti-title" header tag="div">
+                                                <h6 className="text-overflow m-0">Produtos</h6>
+                                            </DropdownItem>
+
+                                            {
+                                            Object.keys(projects).map((project,i) => (
+                                                
+                                            <div key={i}>
+                                                {projects[project].map((nome,ind)=>
+                                                    <DropdownItem key={ind} to={{pathname: `/admin/${nome.slug}/novo-produto`}} tag={Link}>
+                                                        <i className="ni ni-single-02" />
+                                                        <span>Cadastrar</span>
+                                                    </DropdownItem>
+                                                )}
+                                            </div> 
+                                            
+                                            ))
+                                        }  
+                                            <DropdownItem to="/admin/" tag={Link}>
+                                                <i className="ni ni-settings-gear-65" />
+                                                <span>Visualizar</span>
+                                            </DropdownItem>
+                                            <DropdownItem to="/admin/" tag={Link}>
+                                                <i className="ni ni-support-16" />
+                                                <span>Reportar erro</span>
+                                            </DropdownItem>
+                                         </DropdownMenu>
+                                    </UncontrolledDropdown>
+
+
+
+                                    <UncontrolledDropdown>
+                                        <DropdownToggle color="primary">
+                                                Estoque
+                                        </DropdownToggle>
+                                        <DropdownMenu className="dropdown-menu-arrow" right>
+                                            <DropdownItem className="noti-title" header tag="div">
+                                                <h6 className="text-overflow m-0">Estoque</h6>
+                                            </DropdownItem>
+                                            <DropdownItem to="/admin" tag={Link}>
+                                                <i className="ni ni-single-02" />
+                                                <span>Criar</span>
+                                            </DropdownItem>
+                                            {
+                                                Object.keys(projects).map((project,i) => (
+                                                    
+                                                <div key={i}>
+                                                    {projects[project].map((nome,ind)=>
+                                                    <DropdownItem key={ind} to={{pathname: `/admin/${nome.slug}/estoque`}} tag={Link}>
+                                                        <i className="ni ni-settings-gear-65" />
+                                                        <span>Visualizar</span>
+                                                    </DropdownItem>
+                                                    )}
+                                                </div> 
+                                                ))
+                                            } 
+                                            <DropdownItem to="/admin" tag={Link}>
+                                                <i className="ni ni-support-16" />
+                                                <span>Reportar erro</span>
+                                            </DropdownItem>
+                                         </DropdownMenu>
+                                    </UncontrolledDropdown>
+                                </Row>
                             </CardBody>
                         </Card>
                     </Col>

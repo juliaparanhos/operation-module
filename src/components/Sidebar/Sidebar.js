@@ -65,21 +65,21 @@ class Sidebar extends React.Component {
   };
   // creates the links that appear in the left menu / Sidebar
   createLinks = routes => {
-    return routes.map((prop, key) => {
+    
       return (
-        <NavItem key={key}>
+        <NavItem>
           <NavLink
-            to={prop.layout + prop.path}
+            to="/admin/index"
             tag={NavLinkRRD}
             onClick={this.closeCollapse}
             activeClassName="active"
           >
-            <i className={prop.icon} />
-            {prop.name}
+            <i className="ni ni-tv-2 text-primary" />
+            Home
           </NavLink>
         </NavItem>
       );
-    });
+  
   };
   render() {
     const { bgColor, routes, logo } = this.props;
@@ -129,37 +129,21 @@ class Sidebar extends React.Component {
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
-                      src={require("assets/img/theme/team-1-800x800.jpg")}
+                      src={require("assets/img/brand/planoa-mini.png")}
                     />
                   </span>
                 </Media>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
-                <DropdownItem className="noti-title" header tag="div">
-                  <h6 className="text-overflow m-0">Welcome!</h6>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-single-02" />
-                  <span>My profile</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-settings-gear-65" />
-                  <span>Settings</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-calendar-grid-58" />
-                  <span>Activity</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-support-16" />
-                  <span>Support</span>
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
-                  <i className="ni ni-user-run" />
-                  <span>Logout</span>
-                </DropdownItem>
-              </DropdownMenu>
+                  <DropdownItem className="noti-title" header tag="div">
+                    <h6 className="text-overflow m-0">Olá!</h6>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={e => e.preventDefault()}>
+                    <i className="ni ni-user-run" />
+                    <span>Sair</span>
+                  </DropdownItem>
+                </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
           {/* Collapse */}

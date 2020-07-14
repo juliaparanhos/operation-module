@@ -68,7 +68,7 @@ class Index extends React.Component {
         </>
     } else {
       const bl = '/admin/projetos/:id'
-      estado = <>
+      estado = <> 
           <Header/>
           <Container className="mt--7" fluid>
           <Col md="12">
@@ -82,7 +82,6 @@ class Index extends React.Component {
                       </Button>
                   </Link>
                 </CardTitle> 
-                <hr style={{marginTop: '-15px'}}/>
                 <Table hover responsive>
                     <thead>
                       <tr>

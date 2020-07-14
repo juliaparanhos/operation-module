@@ -3,12 +3,14 @@ import Index from "views/home/Index.js";
 import Register from "views/admin/access/Register.js";
 import Login from "views/admin/access/Login.js";
 import LoginStaff from "views/staff/access/Login_Staff.js";
+import Logout from "views/admin/access/Logout.js";
 import CreateProject from "views/admin/Create_project.js";
 import viewProject from "views/admin/viewproject/viewProject";
 import ViewStaffs from "views/admin/staffs/ViewStaffs.js";
 import StaffsDetails from "views/admin/staffs/StaffDetails.js";
 import Products from "views/admin/stock/Products.js"; 
 import StockIndex from "views/admin/stock/Index.js";
+import Stock from "views/admin/stock/Stock.js";
 import NotFound from "notfound.js"
 
 var routes = [
@@ -25,6 +27,11 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/logout",
+    component: Logout,
+    layout: "/auth"
+  },
+  {
     path: "/login",
    // name: "Login",
    // icon: "ni ni-key-25 text-info",
@@ -37,7 +44,12 @@ var routes = [
     layout: "/auth"
   },
   {
-    path: "/projetos/:slug/estoque",
+    path: "/:slug/estoque",
+    component: Stock,
+    layout: "/admin"
+  },
+  {
+    path: "/projetos/:slug/detalhamento",
     component: StockIndex,
     layout: "/admin"
   },
@@ -47,7 +59,7 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/:slug/produtos",
+    path: "/:slug/novo-produto",
     component: Products,
     layout: "/admin"
   },

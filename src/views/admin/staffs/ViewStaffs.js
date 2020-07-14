@@ -106,8 +106,8 @@ class ViewStaffs extends React.Component{
                                                                 Object.keys(projects).map((project,i) => (
                                                                     
                                                                 <div key={i}>
-                                                                    {projects[project].map((use)=>
-                                                                        <Link  to={{pathname: `/admin/projetos/${use.slug}/staffs/${nome.id}`}}>
+                                                                    {projects[project].map((use, ind)=>
+                                                                        <Link key={ind} to={{pathname: `/admin/projetos/${use.slug}/staffs/${nome.id}`}}>
                                                                             <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
                                                                                 <i className="ni ni-bold-right"/>
                                                                             </Button>

@@ -65,14 +65,14 @@ class viewProject extends React.Component{
                             <Card>
                                 <CardImg  src={bckg1} alt="Card image cap" />
                                     <CardBody>
-                                        <CardTitle className="text-uppercase"> Operação</CardTitle>
+                                        <CardTitle className="text-uppercase"> Estoque</CardTitle>
                                         <div className="text-center">
                                         {
                                             Object.keys(projects).map((project,i) => (
                                                 
                                             <div key={i}>
                                                 {projects[project].map((nome,ind)=>
-                                                    <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/estoque`}}>
+                                                    <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/detalhamento`}}>
                                                         <Button className="btn-success">Atualizar</Button>
                                                     </Link>
                                                 )}
@@ -90,6 +90,29 @@ class viewProject extends React.Component{
                                 <CardImg  src={bckg} style={{height: '196px'}} alt="Card image cap" />
                                     <CardBody>
                                         <CardTitle className="text-uppercase">Staffs</CardTitle>
+                                        <div className="text-center">
+                                        {
+                                            Object.keys(projects).map((project,i) => (
+                                                
+                                            <div key={i}>
+                                                {projects[project].map((nome,ind)=>
+                                                    <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/staffs`}}>
+                                                        <Button className="btn-success">Atualizar</Button>
+                                                    </Link>
+                                                )}
+                                            </div> 
+                                            
+                                            ))
+                                        }                                                
+                                        </div> 
+                                    </CardBody>
+                            </Card>
+                            </Col>
+                            <Col md="4">
+                            <Card>
+                                <CardImg  src={bckg} style={{height: '196px'}} alt="Card image cap" />
+                                    <CardBody>
+                                        <CardTitle className="text-uppercase">Operação</CardTitle>
                                         <div className="text-center">
                                         {
                                             Object.keys(projects).map((project,i) => (
