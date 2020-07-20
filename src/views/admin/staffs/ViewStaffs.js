@@ -61,9 +61,11 @@ class ViewStaffs extends React.Component{
                                 <div key={i}>
                                     {projects[project].map((nome,ind)=>
                                         <CardTitle className="font-weight-light" tag="h1" key={ind}>Staffs - {nome.name} &nbsp;
-                                            <Button size="sm" className="btn-info icon-shape text-white border rounded-circle">
-                                                    <i className="ni ni-fat-add"/>
-                                            </Button>
+                                            <Link to={{pathname: `/admin/${nome.slug}/criar-staff`}}>
+                                                <Button size="sm" className="btn-info icon-shape text-white border rounded-circle">
+                                                        <i className="ni ni-fat-add"/>
+                                                </Button>
+                                            </Link>
                                         </CardTitle>
                                     )}
                                 </div> 

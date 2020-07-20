@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from "react";
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 
@@ -7,7 +8,7 @@ class Header extends React.Component {
       <>
         <div className="header  pb-8 pt-5 pt-md-8">
           <Container fluid>
-            <div className="header-body">
+           {/* <div className="header-body">
               <Row>
                 <Col lg="6" xl="3">
                   <Card className="card-stats mb-4 mb-xl-0">
@@ -37,7 +38,7 @@ class Header extends React.Component {
                 <Col lg="6" xl="3">
                   <Card className="card-stats mb-4 mb-xl-0">
                     <CardBody>
-                      {/* posteriormente -> Informações relevantes */}
+                     
                       <Row>
                         <div className="col">
                           <CardTitle
@@ -109,7 +110,7 @@ class Header extends React.Component {
                   </Card>
                 </Col>
               </Row>
-            </div>
+            </div>*/}
           </Container>
         </div>
       </>

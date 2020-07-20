@@ -2,14 +2,8 @@
 import React, {Fragment} from "react";
 import {Link} from "react-router-dom";
 import {
-Button,
 Card,
-CardHeader,
 CardBody,
-Table,
-Navbar,
-Nav,
-Media,
 DropdownItem,
 DropdownToggle,
 UncontrolledDropdown,
@@ -22,7 +16,7 @@ CardTitle
 import Header from "components/Headers/Header.js";
 import api from "api/api.js";
 
-class StockIndex extends React.Component{
+class OperationIndex extends React.Component{
     constructor (props){
         super(props);
           api.get('/projects').then(res => {
@@ -31,26 +25,10 @@ class StockIndex extends React.Component{
           if (res.ok){
             return res.json();
           }
-         Object.keys(this.state.projects).map((project,i) => (
-                <div key={i}>
-                    {this.state.projects[project].map((nome,ind)=>
-                        api.get(`/p/${nome.slug}/stock_storages`).then(res => {
-                            console.log(res.data)
-                            this.setState({stock: res.data})
-                            if (res.ok){
-                                return res.json();
-                              }
-                        })
-                    )}
-                </div>                
-            )
-       )
          
           })
         this.state = {
           projects: [],
-          staffs: [],
-          stock: [],
         };
         
         }
@@ -69,7 +47,7 @@ class StockIndex extends React.Component{
                                 <div key={i}>
                                     {projects[project].map((nome,ind)=>
                                         <CardTitle className="font-weight-light" tag="h1" key={ind}>
-                                            Estoque - {nome.name} &nbsp;
+                                            Operação - {nome.name} &nbsp;
                                         </CardTitle>
                                     )}
                                 </div> 
@@ -80,11 +58,11 @@ class StockIndex extends React.Component{
                                     
                                 <UncontrolledDropdown>
                                         <DropdownToggle color="primary">
-                                                Produtos
+                                                Locais
                                         </DropdownToggle>
                                         <DropdownMenu className="dropdown-menu-arrow" right>
                                             <DropdownItem className="noti-title" header tag="div">
-                                                <h6 className="text-overflow m-0">Produtos</h6>
+                                                <h6 className="text-overflow m-0">Locais</h6>
                                             </DropdownItem>
 
                                             {
@@ -93,19 +71,14 @@ class StockIndex extends React.Component{
                                             <div key={i}>
                                                 {projects[project].map((nome,ind)=>
                                                 <Fragment key={ind}>
-                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/novo-produto`}} tag={Link}>
+                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/novo-local`}} tag={Link}>
                                                         <i className="ni ni-single-02" />
                                                         <span>Cadastrar</span>
                                                     </DropdownItem>
                                             
-                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/produtos`}} tag={Link}>
+                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/locais`}} tag={Link}>
                                                         <i className="ni ni-settings-gear-65" />
                                                         <span>Visualizar</span>
-                                                    </DropdownItem>
-
-                                                    <DropdownItem  to="/admin/" tag={Link}>
-                                                        <i className="ni ni-support-16" />
-                                                        <span>Reportar erro</span>
                                                     </DropdownItem>
                                                 </Fragment>    
                                                      )}
@@ -120,11 +93,11 @@ class StockIndex extends React.Component{
 
                                     <UncontrolledDropdown>
                                         <DropdownToggle color="primary">
-                                                Estoque
+                                                Funções
                                         </DropdownToggle>
                                         <DropdownMenu className="dropdown-menu-arrow" right>
                                             <DropdownItem className="noti-title" header tag="div">
-                                                <h6 className="text-overflow m-0">Estoque</h6>
+                                                <h6 className="text-overflow m-0">Funções</h6>
                                             </DropdownItem>
                                             {
                                                 Object.keys(projects).map((project,i) => (
@@ -132,11 +105,35 @@ class StockIndex extends React.Component{
                                                 <div key={i}>
                                                     {projects[project].map((nome,ind)=>
                                                     <Fragment key={ind}>
-                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/definir-estoque`}} tag={Link}>
+                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/nova-funcao`}} tag={Link}>
                                                         <i className="ni ni-single-02" />
-                                                        <span>Definir</span>
+                                                        <span>Cadastrar</span>
                                                     </DropdownItem>
-                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/estoque`}} tag={Link}>
+                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/funcoes`}} tag={Link}>
+                                                        <i className="ni ni-settings-gear-65" />
+                                                        <span>Visualizar</span>
+                                                    </DropdownItem>
+                                                    <DropdownItem divider />
+                                                    <DropdownItem className="noti-title" header tag="div">
+                                                        <h6 className="text-overflow m-0"> Tipos de Função</h6>
+                                                    </DropdownItem>
+                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/novo-tipo-funcao`}} tag={Link}>
+                                                        <i className="ni ni-single-02" />
+                                                        <span>Cadastrar</span>
+                                                    </DropdownItem>
+                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/tipos-funcao`}} tag={Link}>
+                                                        <i className="ni ni-settings-gear-65" />
+                                                        <span>Visualizar</span>
+                                                    </DropdownItem>
+                                                    <DropdownItem divider />
+                                                    <DropdownItem className="noti-title" header tag="div">
+                                                        <h6 className="text-overflow m-0"> Funções - Staffs</h6>
+                                                    </DropdownItem>
+                                                    <DropdownItem to="/admin" tag={Link}>
+                                                        <i className="ni ni-single-02" />
+                                                        <span>Cadastrar</span>
+                                                    </DropdownItem>
+                                                    <DropdownItem to="/admin" tag={Link}>
                                                         <i className="ni ni-settings-gear-65" />
                                                         <span>Visualizar</span>
                                                     </DropdownItem>
@@ -145,10 +142,36 @@ class StockIndex extends React.Component{
                                                 </div> 
                                                 ))
                                             } 
-                                            <DropdownItem to="/admin" tag={Link}>
-                                                <i className="ni ni-support-16" />
-                                                <span>Reportar erro</span>
+                                         </DropdownMenu>
+                                    </UncontrolledDropdown>
+
+                                    <UncontrolledDropdown>
+                                        <DropdownToggle color="primary">
+                                                Horários
+                                        </DropdownToggle>
+                                        <DropdownMenu className="dropdown-menu-arrow" right>
+                                            <DropdownItem className="noti-title" header tag="div">
+                                                <h6 className="text-overflow m-0">Horários</h6>
                                             </DropdownItem>
+                                            {
+                                                Object.keys(projects).map((project,i) => (
+                                                    
+                                                <div key={i}>
+                                                    {projects[project].map((nome,ind)=>
+                                                    <Fragment key={ind}>
+                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/definir-tabela-horarios`}} tag={Link}>
+                                                        <i className="ni ni-single-02" />
+                                                        <span>Cadastrar</span>
+                                                    </DropdownItem>
+                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}`}} tag={Link}>
+                                                        <i className="ni ni-settings-gear-65" />
+                                                        <span>Visualizar</span>
+                                                    </DropdownItem>
+                                                    </Fragment>
+                                                    )}
+                                                </div> 
+                                                ))
+                                            } 
                                          </DropdownMenu>
                                     </UncontrolledDropdown>
                                 </Row>
@@ -160,4 +183,4 @@ class StockIndex extends React.Component{
         )
     }
 }
-export default StockIndex;
+export default OperationIndex;

@@ -18,7 +18,7 @@ CardTitle
 } from "reactstrap";
 import Header from "components/Headers/Header.js";
 
-class ProductCard extends React.Component{
+class CreateStaffOccup extends React.Component{
     constructor(props){
       super(props);
       this.state = {
@@ -160,7 +160,7 @@ class ProductCard extends React.Component{
                 Resumo
             </h6>
             
-            <ProductCard product={this.props.formData} />
+            <CreateStaffOccup product={this.props.formData} />
           
           </div>
           <Button color="success" onClick={() => this.checkForm()}>Confirmar Produto</Button>

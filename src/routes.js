@@ -4,12 +4,24 @@ import Register from "views/admin/access/Register.js";
 import Login from "views/admin/access/Login.js";
 import LoginStaff from "views/staff/access/Login_Staff.js";
 import Logout from "views/admin/access/Logout.js";
+import CreateStaffsOccup from "views/admin/operation/occupations/staffs occupations/Create_staffsOccup.js"
+import CreateTime from "views/admin/operation/timerows/Create_time.js";
+import CreateType from "views/admin/operation/occupations/types/Create_type.js"
 import CreateProject from "views/admin/Create_project.js";
+import CreateStaff from "views/admin/staffs/Create_staffs.js";
+import CreatePlace from "views/admin/operation/places/Create_place.js";
+import CreateStock from "views/admin/stock/Create_stock.js";
+import CreateOccupation from "views/admin/operation/occupations/Create_occupation.js";
+import ViewTypes from "views/admin/operation/occupations/types/ViewTypes.js"
 import viewProject from "views/admin/viewproject/viewProject";
 import ViewStaffs from "views/admin/staffs/ViewStaffs.js";
+import ViewPlaces from "views/admin/operation/places/ViewPlaces.js";
+import ViewOccupations from "views/admin/operation/occupations/ViewOccupations.js";
 import StaffsDetails from "views/admin/staffs/StaffDetails.js";
 import Products from "views/admin/stock/Products.js"; 
+import ProductsList from "views/admin/stock/Products_list.js";
 import StockIndex from "views/admin/stock/Index.js";
+import OperationIndex from "views/admin/operation/Index.js";
 import Stock from "views/admin/stock/Stock.js";
 import NotFound from "notfound.js"
 
@@ -44,6 +56,16 @@ var routes = [
     layout: "/auth"
   },
   {
+    path: "/:slug/definir-estoque",
+    component: CreateStock,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/criar-staff",
+    component: CreateStaff,
+    layout: "/admin"
+  },
+  {
     path: "/:slug/estoque",
     component: Stock,
     layout: "/admin"
@@ -59,8 +81,58 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/projetos/:slug/detalhamento-operacao",
+    component: OperationIndex,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/locais",
+    component: ViewPlaces,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/novo-local",
+    component: CreatePlace,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/produtos",
+    component: ProductsList,
+    layout: "/admin"
+  },
+  {
     path: "/:slug/novo-produto",
     component: Products,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/funcoes",
+    component: ViewOccupations,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/nova-funcao",
+    component: CreateOccupation,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/tipos-funcao",
+    component: ViewTypes,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/novo-tipo-funcao",
+    component: CreateType,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/staffs/:id/definir-funcao",
+    component: CreateStaffsOccup,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/definir-tabela-horarios",
+    component: CreateTime,
     layout: "/admin"
   },
   {

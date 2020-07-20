@@ -77,6 +77,15 @@ class Sidebar extends React.Component {
             <i className="ni ni-tv-2 text-primary" />
             Home
           </NavLink>
+          <NavLink
+            to="/admin/index"
+            tag={NavLinkRRD}
+            onClick={this.closeCollapse}
+            activeClassName="active"
+          >
+            <i className="ni ni-calendar-grid-58 text-primary" />
+            Distribuição
+          </NavLink>
         </NavItem>
       );
   

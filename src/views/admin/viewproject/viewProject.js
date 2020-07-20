@@ -119,7 +119,7 @@ class viewProject extends React.Component{
                                                 
                                             <div key={i}>
                                                 {projects[project].map((nome,ind)=>
-                                                    <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/staffs`}}>
+                                                    <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/detalhamento-operacao`}}>
                                                         <Button className="btn-success">Atualizar</Button>
                                                     </Link>
                                                 )}
