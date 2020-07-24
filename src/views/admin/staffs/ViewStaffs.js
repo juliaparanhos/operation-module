@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from 'react';
+import React, { useCallback } from 'react';
 import {Link} from 'react-router-dom';
 import {
 Button,
@@ -13,41 +13,41 @@ Col,
 CardTitle
 } from "reactstrap";
 import api from '../../../api/api.js';
+import axios from "axios"
+import Header from "components/Headers/Header";
 
-import Header from "components/Headers/Header.js";
-
-class ViewStaffs extends React.Component{
+  
+   
+ class ViewStaffs extends React.Component{
+    componentDidMount(){
+        api.get('/projects').then(res => {
+            console.log(res.data)
+            this.setState({projects: res.data})
+        }).catch(error => {
+            console.log(JSON.parse(JSON.stringify(error)))
+        })
+        api.get(`/p/${this.props.match.params.slug}/staffs`).then(res => {
+            console.log(res.data)
+            this.setState({staffs: res.data})
+        }).catch(error => {
+          console.log(JSON.parse(JSON.stringify(error)))
+      })
+}
     constructor (props){
         super(props);
-          api.get('/projects').then(res => {
-          console.log(res.data)
-          this.setState({projects: res.data})
-          if (res.ok){
-            return res.json();
-          }
-         Object.keys(this.state.projects).map((project,i) => (
-                <div key={i}>
-                    {this.state.projects[project].map((nome,ind)=>
-                        api.get(`/p/${nome.slug}/staffs`).then(res => {
-                            console.log(res.data)
-                            this.setState({staffs: res.data})
-                          
-                        })
-                    )}
-                </div>                
-            )
-       )
-         
-          })
+      
+        
         this.state = {
           projects: [],
           staffs: [],
+          error: undefined
         };
         
         }
     render(){
         const { projects } = this.state;
         const {staffs} = this.state;
+       console.log(this.props)
         return(
             <>
                 <Header/>
@@ -55,24 +55,13 @@ class ViewStaffs extends React.Component{
                     <Col md="12">
                         <Card>
                             <CardBody>
-                            {
-                                Object.keys(projects).map((project,i) => (
-                                    
-                                <div key={i}>
-                                    {projects[project].map((nome,ind)=>
-                                        <CardTitle className="font-weight-light" tag="h1" key={ind}>Staffs - {nome.name} &nbsp;
-                                            <Link to={{pathname: `/admin/${nome.slug}/criar-staff`}}>
-                                                <Button size="sm" className="btn-info icon-shape text-white border rounded-circle">
-                                                        <i className="ni ni-fat-add"/>
-                                                </Button>
-                                            </Link>
-                                        </CardTitle>
-                                    )}
-                                </div> 
-                                
-                                ))
-                             }
-
+                                <CardTitle className="font-weight-light" tag="h1">Staffs - {this.props.match.params.slug}  &nbsp;
+                                    <Link to={{pathname: `/admin/${this.props.match.params.slug}/criar-staff`}}>
+                                        <Button size="sm" className="btn-info icon-shape text-white border rounded-circle">
+                                                <i className="ni ni-fat-add"/>
+                                        </Button>
+                                    </Link>
+                                </CardTitle>
                                 <Table hover responsive>
                                     <thead>
                                         

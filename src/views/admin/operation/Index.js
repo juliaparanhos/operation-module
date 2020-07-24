@@ -41,19 +41,10 @@ class OperationIndex extends React.Component{
                     <Col md="12">
                         <Card>
                             <CardBody>
-                            {
-                                Object.keys(projects).map((project,i) => (
-                                    
-                                <div key={i}>
-                                    {projects[project].map((nome,ind)=>
-                                        <CardTitle className="font-weight-light" tag="h1" key={ind}>
-                                            Operação - {nome.name} &nbsp;
-                                        </CardTitle>
-                                    )}
-                                </div> 
-                                
-                                ))
-                             }
+                                <CardTitle className="font-weight-light" tag="h1" >
+                                    Operação - {this.props.match.params.slug} &nbsp;
+                                </CardTitle>
+                               
                                 <Row className="justify-content-around"> 
                                     
                                 <UncontrolledDropdown>
@@ -64,28 +55,17 @@ class OperationIndex extends React.Component{
                                             <DropdownItem className="noti-title" header tag="div">
                                                 <h6 className="text-overflow m-0">Locais</h6>
                                             </DropdownItem>
-
-                                            {
-                                            Object.keys(projects).map((project,i) => (
-                                                
-                                            <div key={i}>
-                                                {projects[project].map((nome,ind)=>
-                                                <Fragment key={ind}>
-                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/novo-local`}} tag={Link}>
+                                                <Fragment>
+                                                    <DropdownItem  to={{pathname: `/admin/${this.props.match.params.slug}/novo-local`}} tag={Link}>
                                                         <i className="ni ni-single-02" />
                                                         <span>Cadastrar</span>
                                                     </DropdownItem>
                                             
-                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/locais`}} tag={Link}>
+                                                    <DropdownItem  to={{pathname: `/admin/${this.props.match.params.slug}/locais`}} tag={Link}>
                                                         <i className="ni ni-settings-gear-65" />
                                                         <span>Visualizar</span>
                                                     </DropdownItem>
                                                 </Fragment>    
-                                                     )}
-                                            </div> 
-                                            
-                                            ))
-                                        } 
                                          </DropdownMenu>
                                     </UncontrolledDropdown>
 
@@ -99,17 +79,12 @@ class OperationIndex extends React.Component{
                                             <DropdownItem className="noti-title" header tag="div">
                                                 <h6 className="text-overflow m-0">Funções</h6>
                                             </DropdownItem>
-                                            {
-                                                Object.keys(projects).map((project,i) => (
-                                                    
-                                                <div key={i}>
-                                                    {projects[project].map((nome,ind)=>
-                                                    <Fragment key={ind}>
-                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/nova-funcao`}} tag={Link}>
+                                                    <Fragment>
+                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}/nova-funcao`}} tag={Link}>
                                                         <i className="ni ni-single-02" />
                                                         <span>Cadastrar</span>
                                                     </DropdownItem>
-                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/funcoes`}} tag={Link}>
+                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}/funcoes`}} tag={Link}>
                                                         <i className="ni ni-settings-gear-65" />
                                                         <span>Visualizar</span>
                                                     </DropdownItem>
@@ -117,11 +92,11 @@ class OperationIndex extends React.Component{
                                                     <DropdownItem className="noti-title" header tag="div">
                                                         <h6 className="text-overflow m-0"> Tipos de Função</h6>
                                                     </DropdownItem>
-                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/novo-tipo-funcao`}} tag={Link}>
+                                                    <DropdownItem  to={{pathname: `/admin/${this.props.match.params.slug}/novo-tipo-funcao`}} tag={Link}>
                                                         <i className="ni ni-single-02" />
                                                         <span>Cadastrar</span>
                                                     </DropdownItem>
-                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/tipos-funcao`}} tag={Link}>
+                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}/tipos-funcao`}} tag={Link}>
                                                         <i className="ni ni-settings-gear-65" />
                                                         <span>Visualizar</span>
                                                     </DropdownItem>
@@ -138,10 +113,7 @@ class OperationIndex extends React.Component{
                                                         <span>Visualizar</span>
                                                     </DropdownItem>
                                                     </Fragment>
-                                                    )}
-                                                </div> 
-                                                ))
-                                            } 
+                                                  
                                          </DropdownMenu>
                                     </UncontrolledDropdown>
 
@@ -153,25 +125,17 @@ class OperationIndex extends React.Component{
                                             <DropdownItem className="noti-title" header tag="div">
                                                 <h6 className="text-overflow m-0">Horários</h6>
                                             </DropdownItem>
-                                            {
-                                                Object.keys(projects).map((project,i) => (
-                                                    
-                                                <div key={i}>
-                                                    {projects[project].map((nome,ind)=>
-                                                    <Fragment key={ind}>
-                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/definir-tabela-horarios`}} tag={Link}>
+                                                    <Fragment>
+                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}}/definir-tabela-horarios`}} tag={Link}>
                                                         <i className="ni ni-single-02" />
                                                         <span>Cadastrar</span>
                                                     </DropdownItem>
-                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}`}} tag={Link}>
+                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}`}} tag={Link}>
                                                         <i className="ni ni-settings-gear-65" />
                                                         <span>Visualizar</span>
                                                     </DropdownItem>
                                                     </Fragment>
-                                                    )}
-                                                </div> 
-                                                ))
-                                            } 
+                                                    
                                          </DropdownMenu>
                                     </UncontrolledDropdown>
                                 </Row>

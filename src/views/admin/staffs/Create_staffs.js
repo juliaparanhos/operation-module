@@ -17,10 +17,112 @@ Col,
 CardTitle
 } from "reactstrap";
 import Header from "components/Headers/Header.js";
+import api from "api/api";
 
 
 class CreateStaff extends React.Component{
+    constructor() {
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handlePhoneChange = this.handlePhoneChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleTypeChange = this.handleTypeChange.bind(this);
+        this.handleImageChange = this.handleImageChange.bind(this);
+        this.handleActiveChange = this.handleActiveChange.bind(this);
+        this.state = {
+          name: undefined,
+          phone: undefined,
+          email: undefined,
+          password: undefined,
+          image: undefined,
+          type: undefined,
+          active: undefined,
+          message: undefined,
+          projects: []
+        };
+      } 
+
+    handleNameChange(e){
+        this.setState({
+            name: e.target.value
+        })
+    }
+    handlePhoneChange(e){
+        this.setState({
+            phone: e.target.value
+        })
+    }
+    handleEmailChange(e){
+        this.setState({
+            email: e.target.value
+        })
+    }
+    handlePasswordChange(e){
+        this.setState({
+            password: e.target.value
+        })
+    }
+    handleImageChange(e){
+        this.setState({
+            image: e.target.value
+        })
+    }
+    handleTypeChange(e){
+        this.setState({
+            type: e.target.value
+        })
+    }
+    handleActiveChange(e){
+        this.setState({
+            active: e.target.value
+        })
+    }
     
+    handleSubmit(e){
+        e.preventDefault();
+        let dataToSend = {
+                name: this.state.name,
+                phone: this.state.phone,
+                email: this.state.email,
+                password: this.state.password,
+                image: this.state.image,
+                type: this.state.string,
+                active: this.state.active,
+        };
+        console.log(JSON.stringify(dataToSend))
+        var token = JSON.parse(localStorage.getItem('operation_token'))['access_token']
+        api.get('/projects').then(res => {
+            this.setState({projects: res.data})
+
+    })
+
+    
+    fetch(`http://op.aurora.planoaeventos.com.br/api/p/$${this.props.match.params.slug}/staffs`,{
+        method: 'POST',
+        body: JSON.stringify(dataToSend),
+        headers: new Headers ({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',  
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }),
+    }).then(response => {
+        if(response.ok) {
+          return response.json()
+        }
+        throw new Error("Error ao criar")
+      })
+      .then(token => {
+        console.log(token);
+           // localStorage.setItem('operation_token', token);
+           localStorage.setItem('operation_token', JSON.stringify(token));
+      })
+      .catch(e => {
+        this.setState({message: e.message})
+      })
+        
+      }
     render(){
         return(
             <>
@@ -36,7 +138,7 @@ class CreateStaff extends React.Component{
                                     </Row>   
                                 </CardHeader>
                                 <CardBody>
-                                    <Form>
+                                    <Form onSubmit={this.handleSubmit}>
                                     <h6 className="heading-small text-muted mb-4">
                                        Novo Staff
                                     </h6>
@@ -53,6 +155,7 @@ class CreateStaff extends React.Component{
                                                 className="form-control-alternative"
                                                 placeholder="Nome"
                                                 type="text"
+                                                onChange={this.handleNameChange}
                                                 />
                                             </FormGroup>
                                             </Col>
@@ -66,7 +169,8 @@ class CreateStaff extends React.Component{
                                                 <Input
                                                 className="form-control-alternative"
                                                 placeholder="Telefone"
-                                                type="tel"
+                                                type="text"
+                                                onChange={this.handlePhoneChange}
                                                 />
                                             </FormGroup>
                                             </Col>
@@ -83,6 +187,7 @@ class CreateStaff extends React.Component{
                                                 className="form-control-alternative"
                                                 placeholder="Nome"
                                                 type="email"
+                                                onChange={this.handleEmailChange}
                                                 />
                                             </FormGroup>
                                             </Col>
@@ -97,6 +202,7 @@ class CreateStaff extends React.Component{
                                                 className="form-control-alternative"
                                                 placeholder="Senha"
                                                 type="text"
+                                                onChange={this.handlePasswordChange}
                                                 />
                                             </FormGroup>
                                             </Col>
@@ -113,6 +219,7 @@ class CreateStaff extends React.Component{
                                                 className="form-control-alternative"
                                                 placeholder="Imagem URL"
                                                 type="text"
+                                                onChange={this.handleImageChange}
                                                 />
                                             </FormGroup>
                                             </Col>
@@ -126,10 +233,11 @@ class CreateStaff extends React.Component{
                                                 <Input
                                                 className="form-control-alternative"
                                                 type="select"
+                                                onChange={this.handleTypeChange}
                                                 > 
                                                 <option> --- </option>
-                                                <option> Admin </option>
-                                                <option> Moderador </option>
+                                                <option value="Admin"> Admin </option>
+                                                <option value="Moderador"> Moderador </option>
                                                 </Input>
                                             </FormGroup>
                                             </Col>
@@ -143,15 +251,16 @@ class CreateStaff extends React.Component{
                                                 <Input
                                                 className="form-control-alternative"
                                                 type="select"
+                                                onChange={this.handleActiveChange}
                                                 > 
                                                 <option> ---</option>
-                                                <option> Sim</option>
-                                                <option> Não </option>
+                                                <option value="1"> Sim</option>
+                                                <option value="0"> Não </option>
                                                 </Input>
                                             </FormGroup>
                                             </Col>
                                         </Row>
-                                        <Button color="success">Criar Staff</Button>
+                                        <Button type="submit" color="success">Criar Staff</Button>
                                         <Button color="primary">Importar CSV</Button>
                                         </div>
                                     </Form>

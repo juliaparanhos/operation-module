@@ -178,24 +178,6 @@ class Login extends React.Component {
               </Form>
             </CardBody>
           </Card>
-          <Row className="mt-3">
-            <Col xs="6">
-              <a
-                className="text-light"
-                onClick={e => e.preventDefault()}
-              >
-                <small>Esqueceu a senha?</small>
-              </a>
-            </Col>
-            <Col className="text-right" xs="6">
-              <a
-                className="text-light"
-                onClick={e => e.preventDefault()}
-              >
-                <small>Nova conta</small>
-              </a>
-            </Col>
-          </Row>
         </Col>
       </>
     );

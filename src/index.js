@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import axios from "axios"
 
 import "assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -11,6 +12,21 @@ import AuthLayout from "layouts/Auth.js";
 import StaffLayout from "layouts/Staff.js";
 import PrivateRoute from "api/auth";
 
+axios.interceptors.request.use(request =>{
+  console.log(request);
+  return request;
+}, error => {
+  console.log(error);
+  return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response =>{
+  console.log(response);
+  return response;
+}, error => {
+  console.log(error);
+  return Promise.reject(error);
+})
 
 ReactDOM.render(
   <BrowserRouter>

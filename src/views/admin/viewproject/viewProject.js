@@ -37,50 +37,33 @@ class viewProject extends React.Component{
         };
         
         }
-    render(){
-        const { projects } = this.state;
+
+        
+    render( ){
         return(
             <>
                 <Header/>
                 <Container className="mt--7" fluid>
                     <Col md="12">
                         <Card>
-                        <CardBody>
-                        {
-                          Object.keys(projects).map((project,i) => (
-                              
-                          <div key={i}>
-                            {projects[project].map((nome,ind)=>
-                                <CardTitle className="font-weight-light" tag="h1" key={ind}>Projeto - {nome.name} </CardTitle>
-                            )}
-                          </div> 
-                         
-                          ))
-                        }
-
-                        
+                        <CardBody> 
+                            <CardTitle className="font-weight-light" tag="h1">Projeto - {this.props.match.params.slug} </CardTitle>
                             <hr style={{marginTop: '-15px'}}/>
-                            <Row className="justify-content-md-center">
+                                <div style={{marginTop: '-20px'}}>
+                                    <Button size="sm" color="warning"> Editar </Button>
+                                    <Button size="sm" color="danger"> Deletar </Button>
+                                </div>
+                            <Row className="justify-content-md-center mt-3">
                             <Col md="4">
                             <Card>
                                 <CardImg  src={bckg1} alt="Card image cap" />
                                     <CardBody>
                                         <CardTitle className="text-uppercase"> Estoque</CardTitle>
                                         <div className="text-center">
-                                        {
-                                            Object.keys(projects).map((project,i) => (
-                                                
-                                            <div key={i}>
-                                                {projects[project].map((nome,ind)=>
-                                                    <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/detalhamento`}}>
+                                                    <Link to={{pathname: `/admin/projetos/${this.props.match.params.slug}/detalhamento`}}>
                                                         <Button className="btn-success">Atualizar</Button>
                                                     </Link>
-                                                )}
                                             </div> 
-                                            
-                                            ))
-                                        }
-                                        </div> 
                                     </CardBody>
                             </Card>
                             </Col>
@@ -91,20 +74,12 @@ class viewProject extends React.Component{
                                     <CardBody>
                                         <CardTitle className="text-uppercase">Staffs</CardTitle>
                                         <div className="text-center">
-                                        {
-                                            Object.keys(projects).map((project,i) => (
-                                                
-                                            <div key={i}>
-                                                {projects[project].map((nome,ind)=>
-                                                    <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/staffs`}}>
+                                       
+                                                    <Link to={{pathname: `/admin/projetos/${this.props.match.params.slug}/staffs`}}>
                                                         <Button className="btn-success">Atualizar</Button>
                                                     </Link>
-                                                )}
+                                             
                                             </div> 
-                                            
-                                            ))
-                                        }                                                
-                                        </div> 
                                     </CardBody>
                             </Card>
                             </Col>
@@ -114,19 +89,9 @@ class viewProject extends React.Component{
                                     <CardBody>
                                         <CardTitle className="text-uppercase">Operação</CardTitle>
                                         <div className="text-center">
-                                        {
-                                            Object.keys(projects).map((project,i) => (
-                                                
-                                            <div key={i}>
-                                                {projects[project].map((nome,ind)=>
-                                                    <Link key={ind} to={{pathname: `/admin/projetos/${nome.slug}/detalhamento-operacao`}}>
-                                                        <Button className="btn-success">Atualizar</Button>
-                                                    </Link>
-                                                )}
-                                            </div> 
-                                            
-                                            ))
-                                        }                                                
+                                            <Link to={{pathname: `/admin/projetos/${this.props.match.params.slug}/detalhamento-operacao`}}>
+                                                <Button className="btn-success">Atualizar</Button>
+                                            </Link>
                                         </div> 
                                     </CardBody>
                             </Card>

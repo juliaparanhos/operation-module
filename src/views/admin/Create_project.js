@@ -29,6 +29,7 @@ class CreateProject extends React.Component{
           alert: null,
           name: undefined,
           slug: undefined,
+          message: undefined
         };
       } 
     
@@ -49,7 +50,6 @@ class CreateProject extends React.Component{
       }
 
       hideAlert() {
-        console.log('Alerta ok.');
         this.setState({
           alert: null
         });
@@ -70,28 +70,34 @@ class CreateProject extends React.Component{
       handleSubmit(e){
         e.preventDefault();
         let dataToSend = {
-            data: {
                 name: this.state.name,
                 slug: this.state.slug
-            }
         };
         console.log(JSON.stringify(dataToSend))
+        var token = JSON.parse(localStorage.getItem('operation_token'))['access_token']
         fetch('http://op.aurora.planoaeventos.com.br/api/projects',{
-            credentials: 'include',
             method: 'POST',
             body: JSON.stringify(dataToSend),
-            headers: {
-              "Content-Type": "application/json"
-            },
+            headers: new Headers ({
+              'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',  
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }),
         })
-        .then(response => response.json())
-        .then(responseJson => {
-        console.log(responseJson);
-            if(responseJson.success){
-            localStorage.setItem('operation_token', responseJson.token);
+        .then(response => {
+            if(response.ok) {
+              return response.json()
             }
-     // console.log(response.json())
-    })
+            throw new Error("Error ao criar")
+          })
+          .then(token => {
+            console.log(token);
+               // localStorage.setItem('operation_token', token);
+               localStorage.setItem('operation_token', JSON.stringify(token));
+          })
+          .catch(e => {
+            this.setState({message: e.message})
+          });
       }
 
     render(){
@@ -99,34 +105,34 @@ class CreateProject extends React.Component{
             <>
             <Header/>
                 <Container className="mt--7" fluid>
-                    <Col md="12">
-                        <Card>
+                    <Col className="order-xl-1" xl="12">
+                        <Card  className="bg-secondary shadow">
+                            <CardHeader className="bg-white border-0">
+                                    <Row className="align-items-center">
+                                        <Col xs="8">
+                                            <h3 className="mb-0"> Novo Projeto</h3> 
+                                    </Col>
+                                    </Row>   
+                                </CardHeader>
                             <CardBody>
-                                <CardTitle className="font-weight-light" tag="h1">
-                                    Novo Projeto
-                                </CardTitle>
-                                <hr style={{marginTop: '-15px'}}/>
-                                <h5 className="text-muted font-weight-light" style={{marginTop: '-30px'}}>
-                                    Complete para criar novo projeto
-                                </h5>
-                                <Form className="mt-4" onSubmit={this.handleSubmit}>
+                                <Form onSubmit={this.handleSubmit}>
+                                    <h6 className="heading-small text-muted mb-4">
+                                        Criar Projeto
+                                    </h6>
+                                    <div className="pl-lg-4">
                                     <Row>
-                                        <Col md="4">
+                                        <Col md="6">
                                             <FormGroup>
                                                 <Input name="nome" type="text" placeholder="Nome" onChange={this.handleNameChange}/>
                                             </FormGroup>
                                         </Col>
-                                        <Col md="4">
+                                        <Col md="6">
                                             <FormGroup>
                                                 <Input name="slug" type="text" placeholder="Slug" onChange={this.handleSlugChange} />
                                             </FormGroup>
                                         </Col>
-                                        <Col md="4">
-                                            <FormGroup>
-                                                <Input name="desc" type="text" placeholder="A" />
-                                            </FormGroup>
-                                        </Col>
                                     </Row>
+                                    </div>
                                     <Button className="btn-success text-uppercase" type="submit"  onClick={() => this.thisGoal()}>Criar Projeto</Button>
                                     {this.state.alert}
                                 </Form>

@@ -24,22 +24,14 @@ class Stock extends React.Component{
           if (res.ok){
             return res.json();
           }
-         Object.keys(this.state.projects).map((project,i) => (
-                <div key={i}>
-                    {this.state.projects[project].map((nome,ind)=>
-                        api.get(`/p/${nome.slug}/stock_storages`).then(res => {
-                            console.log(res.data)
-                            this.setState({stock: res.data})
-                            if (res.ok){
-                                return res.json();
-                              }
-                        })
-                    )}
-                </div>                
-            )
-       )
-         
           })
+          api.get(`/p/${this.props.match.params.slug}/stock_storages`).then(res => {
+            console.log(res.data)
+            this.setState({stock: res.data})
+            if (res.ok){
+                return res.json();
+              }
+        })
         this.state = {
           projects: [],
           staffs: [],
@@ -48,7 +40,6 @@ class Stock extends React.Component{
         
         }
     render(){
-        const {projects} = this.state;
         return(
             <>
                 <Header/>
@@ -56,20 +47,10 @@ class Stock extends React.Component{
                     <Col md="12">
                         <Card>
                             <CardBody>
-                            {
-                                Object.keys(projects).map((project,i) => (
-                                    
-                                <div key={i}>
-                                    {projects[project].map((nome,ind)=>
-                                        <CardTitle className="font-weight-light" tag="h1" key={ind}>
-                                            Estoque - {nome.name} &nbsp;
-                                        </CardTitle>
-                                    )}
-                                </div> 
-                                
-                                ))
-                             }
-                                <Table hover responsive>
+                                <CardTitle className="font-weight-light" tag="h1">
+                                    Estoque - {this.props.match.params.slug} &nbsp;
+                                </CardTitle>
+                               <Table hover responsive>
                                     <thead>
                                         <tr className="text-center" >
                                             <th>ID</th>

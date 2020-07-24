@@ -31,31 +31,21 @@ class StockIndex extends React.Component{
           if (res.ok){
             return res.json();
           }
-         Object.keys(this.state.projects).map((project,i) => (
-                <div key={i}>
-                    {this.state.projects[project].map((nome,ind)=>
-                        api.get(`/p/${nome.slug}/stock_storages`).then(res => {
-                            console.log(res.data)
-                            this.setState({stock: res.data})
-                            if (res.ok){
-                                return res.json();
-                              }
-                        })
-                    )}
-                </div>                
-            )
-       )
-         
-          })
+        })
+          api.get(`/p/${this.props.match.params.slug}/stock_storages`).then(res => {
+            console.log(res.data)
+            this.setState({stock: res.data})
+            if (res.ok){
+                return res.json();
+              }
+        })
         this.state = {
           projects: [],
-          staffs: [],
           stock: [],
         };
         
         }
     render(){
-        const {projects} = this.state;
         return(
             <>
                 <Header/>
@@ -63,19 +53,10 @@ class StockIndex extends React.Component{
                     <Col md="12">
                         <Card>
                             <CardBody>
-                            {
-                                Object.keys(projects).map((project,i) => (
-                                    
-                                <div key={i}>
-                                    {projects[project].map((nome,ind)=>
-                                        <CardTitle className="font-weight-light" tag="h1" key={ind}>
-                                            Estoque - {nome.name} &nbsp;
-                                        </CardTitle>
-                                    )}
-                                </div> 
+                                <CardTitle className="font-weight-light" tag="h1">
+                                    Estoque - {this.props.match.params.slug}  &nbsp;
+                                </CardTitle>
                                 
-                                ))
-                             }
                                 <Row className="justify-content-around"> 
                                     
                                 <UncontrolledDropdown>
@@ -86,19 +67,13 @@ class StockIndex extends React.Component{
                                             <DropdownItem className="noti-title" header tag="div">
                                                 <h6 className="text-overflow m-0">Produtos</h6>
                                             </DropdownItem>
-
-                                            {
-                                            Object.keys(projects).map((project,i) => (
-                                                
-                                            <div key={i}>
-                                                {projects[project].map((nome,ind)=>
-                                                <Fragment key={ind}>
-                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/novo-produto`}} tag={Link}>
+                                                <Fragment>
+                                                    <DropdownItem  to={{pathname: `/admin/${this.props.match.params.slug}/novo-produto`}} tag={Link}>
                                                         <i className="ni ni-single-02" />
                                                         <span>Cadastrar</span>
                                                     </DropdownItem>
                                             
-                                                    <DropdownItem  to={{pathname: `/admin/${nome.slug}/produtos`}} tag={Link}>
+                                                    <DropdownItem  to={{pathname: `/admin/${this.props.match.params.slug}/produtos`}} tag={Link}>
                                                         <i className="ni ni-settings-gear-65" />
                                                         <span>Visualizar</span>
                                                     </DropdownItem>
@@ -107,16 +82,9 @@ class StockIndex extends React.Component{
                                                         <i className="ni ni-support-16" />
                                                         <span>Reportar erro</span>
                                                     </DropdownItem>
-                                                </Fragment>    
-                                                     )}
-                                            </div> 
-                                            
-                                            ))
-                                        } 
+                                                </Fragment>  
                                          </DropdownMenu>
                                     </UncontrolledDropdown>
-
-
 
                                     <UncontrolledDropdown>
                                         <DropdownToggle color="primary">
@@ -126,25 +94,16 @@ class StockIndex extends React.Component{
                                             <DropdownItem className="noti-title" header tag="div">
                                                 <h6 className="text-overflow m-0">Estoque</h6>
                                             </DropdownItem>
-                                            {
-                                                Object.keys(projects).map((project,i) => (
-                                                    
-                                                <div key={i}>
-                                                    {projects[project].map((nome,ind)=>
-                                                    <Fragment key={ind}>
-                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/definir-estoque`}} tag={Link}>
+                                                    <Fragment>
+                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}/definir-estoque`}} tag={Link}>
                                                         <i className="ni ni-single-02" />
                                                         <span>Definir</span>
                                                     </DropdownItem>
-                                                    <DropdownItem to={{pathname: `/admin/${nome.slug}/estoque`}} tag={Link}>
+                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}/estoque`}} tag={Link}>
                                                         <i className="ni ni-settings-gear-65" />
                                                         <span>Visualizar</span>
                                                     </DropdownItem>
                                                     </Fragment>
-                                                    )}
-                                                </div> 
-                                                ))
-                                            } 
                                             <DropdownItem to="/admin" tag={Link}>
                                                 <i className="ni ni-support-16" />
                                                 <span>Reportar erro</span>

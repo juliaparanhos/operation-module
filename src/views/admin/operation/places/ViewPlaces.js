@@ -25,21 +25,13 @@ class ViewPlaces extends React.Component{
             if (res.ok){
               return res.json();
             }
-           Object.keys(this.state.projects).map((project,i) => (
-                  <div key={i}>
-                      {this.state.projects[project].map((nome)=>
-                          api.get(`/p/${nome.slug}/places`).then(res => {
-                              console.log(JSON.stringify(res.data))
-                              this.setState({places: res.data})
-                              if (res.ok){
-                                  return res.json();
-                                }
-                          })
-                      )}
-                  </div>                
-              )
-         )
-           
+            })
+            api.get(`/p/${this.props.match.params.slug}/places`).then(res => {
+                console.log(JSON.stringify(res.data))
+                this.setState({places: res.data})
+                if (res.ok){
+                    return res.json();
+                }
             })
         this.state = {
           projects: [],
@@ -48,7 +40,6 @@ class ViewPlaces extends React.Component{
         
         }
     render(){
-        const {projects} = this.state;
         const {places} = this.state;
         return(
             <>
@@ -57,19 +48,10 @@ class ViewPlaces extends React.Component{
                     <Col md="12">
                         <Card>
                             <CardBody>
-                            {
-                                Object.keys(projects).map((project,i) => (
-                                    
-                                <div key={i}>
-                                    {projects[project].map((nome,ind)=>
-                                        <CardTitle className="font-weight-light" tag="h1" key={ind}>
-                                            Lugares - {nome.name} &nbsp;
-                                        </CardTitle>
-                                    )}
-                                </div> 
-                                
-                                ))
-                             }
+                                <CardTitle className="font-weight-light" tag="h1">
+                                    Lugares - {this.props.match.params.slug} &nbsp;
+                                </CardTitle>
+                                   
                                 <Table hover responsive>
                                     <thead>
                                         <tr className="text-center" >
