@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import React, { Fragment } from "react";
 import {Link} from "react-router-dom";
 import {
   Button,
@@ -24,7 +24,6 @@ class Index extends React.Component {
   constructor (props){
     super(props);
       api.get('/projects').then(res => {
-      console.log(res.data)
       this.setState({projects: res.data})
       return res;
     }) 
@@ -34,7 +33,14 @@ class Index extends React.Component {
     };
     
     }
-
+    handleRemoveProjects(id) {
+      api.delete(`/projects/${id}`).then(res => {
+          this.setState({projects: res.data})
+      })
+     .catch(err => {
+         console.log(err)
+     }) 
+  }
   render() {
     const { projects } = this.state;
     let estado 
@@ -90,22 +96,20 @@ class Index extends React.Component {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>
-                        
+                      <td> 
                         {
                           Object.keys(projects).map((project,i) => (
-                              
-                          <div key={i}>
-                            {projects[project].map((nome,ind)=>
-                               <Link key={ind} to={{ pathname:`/admin/projetos/${nome.slug}`}} >
-                                <h4 className="text-primary text-uppercase text-right" key={ind}>{nome.name} </h4>
-                                </Link>
-                            )}
-                          </div> 
-                         
-                          ))
+                              <div key={i}>
+                                {projects[project].map((nome,ind)=>
+                                  <Link key={ind} to={{ pathname:`/admin/projetos/${nome.slug}/${nome.id}`}} >
+                                    <h4 className="text-primary text-uppercase text-right" key={ind}>{nome.name} </h4>
+                                    <h4 className="text-primary text-uppercase text-right">{nome.id} </h4>
+                                    </Link>
+                                )}
+                              </div> 
+                          )) 
                         }
-                        </td>
+                       </td>
                       </tr>
                     </tbody>
                 </Table>

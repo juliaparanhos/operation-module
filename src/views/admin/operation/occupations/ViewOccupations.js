@@ -19,14 +19,6 @@ import api from "api/api.js";
 class ViewPlaces extends React.Component{
     constructor (props){
         super(props);
-        api.get('/projects').then(res => {
-            console.log(res.data)
-            this.setState({projects: res.data})
-            if (res.ok){
-                return res.json();
-                }
-        })
-
         api.get(`/p/${this.props.match.params.slug}/occupations`).then(res => {
             console.log(JSON.stringify(res.data))
             this.setState({occupations: res.data})
@@ -35,7 +27,6 @@ class ViewPlaces extends React.Component{
             }
         })
         this.state = {
-          projects: [],
           occupations: [],
         };
         
@@ -63,27 +54,21 @@ class ViewPlaces extends React.Component{
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {
-                                           Object.keys(occupations).map((occupation,i) => (
-                                  
-                                        <div key={i}>
-                                        {occupations[occupation].map((use,ind)=>
+                                    
                                             <tr className="text-center text-dark" >
-                                                <div key={ind}>
-                                                <td>{use.id}</td>
-                                                <td>{use.name}</td>
-                                                <td>{use.description}</td>
-                                                <td>{use.type}</td>
+                                                <td>----</td>
+                                                <td>-----</td>
+                                                <td>-----</td>
+                                                <td>----</td>
                                                 <td>
-                                                    <Button color="danger"><i className="ni ni-fat-delete"/></Button>
+                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/funcao/${this.props.match.params.id}`}}>
+                                                         <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
+                                                             <i className="ni ni-bold-right"/>
+                                                         </Button>
+                                                    </Link>
                                                 </td>
-                                                </div>
                                             </tr>
-                                        )}
-                                        </div>
-                                     
-                                         ))
-                                      }    
+                                         
                                     </tbody>
                                 </Table>
                             </CardBody>

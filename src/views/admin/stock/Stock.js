@@ -57,15 +57,11 @@ class Stock extends React.Component{
                                             <th>Nome</th>
                                             <th>Consumivel</th>
                                             <th>Qtd</th>
-                                            <th>Check Out</th>
-                                            <th>Check In</th>
                                             <th>Retirar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr className="text-center text-dark">
-                                            <td>---</td>
-                                            <td>---</td>
                                             <td>---</td>
                                             <td>---</td>
                                             <td>---</td>

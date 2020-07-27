@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, { useCallback } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {
 Button,
@@ -13,39 +13,30 @@ Col,
 CardTitle
 } from "reactstrap";
 import api from '../../../api/api.js';
-import axios from "axios"
 import Header from "components/Headers/Header";
 
   
    
  class ViewStaffs extends React.Component{
-    componentDidMount(){
-        api.get('/projects').then(res => {
-            console.log(res.data)
-            this.setState({projects: res.data})
-        }).catch(error => {
-            console.log(JSON.parse(JSON.stringify(error)))
-        })
-        api.get(`/p/${this.props.match.params.slug}/staffs`).then(res => {
+  componentDidMount(){
+        const { match: { params } } = this.props;
+       return api.get(`/p/${params.slug}/staffs`).then(res => {
             console.log(res.data)
             this.setState({staffs: res.data})
         }).catch(error => {
           console.log(JSON.parse(JSON.stringify(error)))
-      })
+        })
 }
     constructor (props){
         super(props);
-      
-        
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.state = {
-          projects: [],
           staffs: [],
           error: undefined
         };
         
         }
     render(){
-        const { projects } = this.state;
         const {staffs} = this.state;
        console.log(this.props)
         return(
@@ -79,43 +70,34 @@ import Header from "components/Headers/Header";
                                     <tbody>
                                         
                                         
-                                            {
+                                            {/*
                                                 Object.keys(staffs).map((staff,i) => (
                                                     
                                                 <> 
                                                 <div key={i}>
-                                                    {staffs[staff].map((nome,ind)=>
-                                                        <tr  className="text-center" key={ind}>
-                                                            <td  key={ind}>---</td>
-                                                            <td  key={ind}>{nome.id}</td>
-                                                            <td  key={ind}>{nome.type}</td>
-                                                            <td  key={ind}>{nome.name}</td>
-                                                            <td  key={ind}>---</td>
-                                                            <td  key={ind}>{nome.email}</td>
+                                                    {staffs[staff].map((nome,ind)=> */
+                                                        <tr  className="text-center">
+                                                            <td  >---</td>
+                                                            <td  ></td>
+                                                            <td  ></td>
+                                                            <td  ></td>
+                                                            <td  >---</td>
+                                                            <td  ></td>
                                                             <td>
-                                                             {
-                                                                Object.keys(projects).map((project,i) => (
-                                                                    
-                                                                <div key={i}>
-                                                                    {projects[project].map((use, ind)=>
-                                                                        <Link key={ind} to={{pathname: `/admin/projetos/${use.slug}/staffs/${nome.id}`}}>
-                                                                            <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
-                                                                                <i className="ni ni-bold-right"/>
-                                                                            </Button>
-                                                                        </Link> 
-                                                                    )}
-                                                                </div> 
-                                                                
-                                                                ))
-                                                            }
+                                                                <Link to={{pathname: `/admin/projetos/${this.props.match.params.slug}/staffs/${this.props.match.params.id}`}}>
+                                                                    <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
+                                                                        <i className="ni ni-bold-right"/>
+                                                                    </Button>
+                                                                </Link> 
+                                                        
                                                             </td>
                                                         </tr>
-                                                    )}
+                                                   /* )}
                                                    </div> 
                                                 </> 
                                                 
                                                 ))
-                                            }
+                                                    */}
                                         
                                     </tbody>
                                 </Table>

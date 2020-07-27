@@ -29,6 +29,7 @@ class ProductsList extends React.Component{
                                 <Table hover responsive>
                                     <thead>
                                         <tr className="text-center">
+                                            <th>ID</th>
                                             <th>Nome</th>
                                             <th>Descrição</th>
                                             <th className="text-right">
@@ -40,9 +41,11 @@ class ProductsList extends React.Component{
                                         <tr className="text-center">
                                             <td>--</td>
                                             <td>--</td>
+                                            <td>--</td>
                                             <td className="text-right">
-                                                <Button size="sm" className="bg-danger text-white border " style={{marginTop: '-10px'}}> <i className="ni ni-fat-delete" /></Button>
+                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/produto/${this.props.match.params.id}`}}>
                                                 <Button size="sm" className="btn-link border" style={{marginTop: '-10px'}}> <i className="ni ni-bold-right" /></Button>
+                                                </Link>
                                             </td>
                                         </tr>
                                     </tbody>

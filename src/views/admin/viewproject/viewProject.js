@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from 'react';
+import React, { Fragment } from 'react';
 import {Link} from 'react-router-dom';
 import {
 Button,
@@ -29,7 +29,6 @@ class viewProject extends React.Component{
     constructor (props){
         super(props);
           api.get('/projects').then(res => {
-          console.log(res.data)
           this.setState({projects: res.data})
         })
         this.state = {
@@ -37,9 +36,17 @@ class viewProject extends React.Component{
         };
         
         }
-
-        
+        handleRemoveProjects(id) {
+            api.delete(`/projects/${id}`).then(res => {
+                this.setState({projects: res.data})
+            })
+           .catch(err => {
+               console.log(err)
+           }) 
+        }
     render( ){
+        console.log(this.props)
+        const {projects} = this.state;
         return(
             <>
                 <Header/>
@@ -50,8 +57,26 @@ class viewProject extends React.Component{
                             <CardTitle className="font-weight-light" tag="h1">Projeto - {this.props.match.params.slug} </CardTitle>
                             <hr style={{marginTop: '-15px'}}/>
                                 <div style={{marginTop: '-20px'}}>
-                                    <Button size="sm" color="warning"> Editar </Button>
-                                    <Button size="sm" color="danger"> Deletar </Button>
+                                    
+                                <Link to={{pathname: `/admin/editar-projeto/${this.props.match.params.id}`}}>
+                                                <Button size="sm" color="warning"> Editar </Button>
+                                                </Link>
+                                                
+                                        {
+                                        Object.keys(projects).map((project,i) => (
+                                            
+                                        <div key={i}>
+                                            {projects[project].map((nome,ind)=>
+                                            <Fragment key={ind}>
+                                               
+                                                <Button onClick={() => this.handleRemoveProjects(nome.id)} size="sm" color="danger"> Deletar </Button>
+                                                </Fragment>
+                                            )}
+                                        </div> 
+                                        
+                                        ))
+                                        }
+                              
                                 </div>
                             <Row className="justify-content-md-center mt-3">
                             <Col md="4">

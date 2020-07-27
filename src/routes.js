@@ -17,7 +17,12 @@ import viewProject from "views/admin/viewproject/viewProject";
 import ViewStaffs from "views/admin/staffs/ViewStaffs.js";
 import ViewPlaces from "views/admin/operation/places/ViewPlaces.js";
 import ViewOccupations from "views/admin/operation/occupations/ViewOccupations.js";
+import OccupationDetails from "views/admin/operation/occupations/OccupationDetails.js";
 import StaffsDetails from "views/admin/staffs/StaffDetails.js";
+import TypeOccupationDetails from "views/admin/operation/occupations/types/TypeDetails.js";
+import ProjectDetails from "views/admin/viewproject/ProjectDetails.js";
+import PlaceDetails from "views/admin/operation/places/PlaceDetails.js";
+import ProductDetails from "views/admin/stock/ProductDetails.js";
 import Products from "views/admin/stock/Products.js"; 
 import ProductsList from "views/admin/stock/Products_list.js";
 import StockIndex from "views/admin/stock/Index.js";
@@ -76,6 +81,11 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/editar-projeto/:id",
+    component: ProjectDetails,
+    layout: "/admin"
+  },
+  {
     path: "/novo-projeto",
     component: CreateProject,
     layout: "/admin"
@@ -91,6 +101,11 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/:slug/local/:id",
+    component: PlaceDetails,
+    layout: "/admin"
+  },
+  {
     path: "/:slug/novo-local",
     component: CreatePlace,
     layout: "/admin"
@@ -98,6 +113,11 @@ var routes = [
   {
     path: "/:slug/produtos",
     component: ProductsList,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/produto/:id",
+    component: ProductDetails,
     layout: "/admin"
   },
   {
@@ -111,6 +131,11 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/:slug/funcao/:id",
+    component: OccupationDetails,
+    layout: "/admin"
+  },
+  {
     path: "/:slug/nova-funcao",
     component: CreateOccupation,
     layout: "/admin"
@@ -118,6 +143,11 @@ var routes = [
   {
     path: "/:slug/tipos-funcao",
     component: ViewTypes,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/tipo-funcao/:id",
+    component: TypeOccupationDetails,
     layout: "/admin"
   },
   {
@@ -146,7 +176,7 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/projetos/:slug",
+    path: "/projetos/:slug/:id",
     component: viewProject,
     layout: "/admin"
   },

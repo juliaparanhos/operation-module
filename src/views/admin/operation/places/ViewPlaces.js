@@ -19,13 +19,6 @@ import api from "api/api.js";
 class ViewPlaces extends React.Component{
     constructor (props){
         super(props);
-        api.get('/projects').then(res => {
-            console.log(res.data)
-            this.setState({projects: res.data})
-            if (res.ok){
-              return res.json();
-            }
-            })
             api.get(`/p/${this.props.match.params.slug}/places`).then(res => {
                 console.log(JSON.stringify(res.data))
                 this.setState({places: res.data})
@@ -34,7 +27,6 @@ class ViewPlaces extends React.Component{
                 }
             })
         this.state = {
-          projects: [],
           places: [],
         };
         
@@ -59,27 +51,24 @@ class ViewPlaces extends React.Component{
                                             <th>Nome</th>
                                             <th>Descrição</th>
                                             <th>Endereço</th>
+                                            <th>Opção</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {
-                                           Object.keys(places).map((place,i) => (
-                                  
-                                        <div key={i}>
-                                        {places[place].map((use,ind)=>
                                             <tr className="text-center text-dark" >
-                                                <div key={ind}>
-                                                <td>{use.id}</td>
-                                                <td>{use.name}</td>
-                                                <td>{use.description}</td>
-                                                <td>{use.address}</td>
-                                                </div>
-                                            </tr>
-                                        )}
-                                        </div>
-                                     
-                                         ))
-                                      }    
+                                               
+                                                <td>--</td>
+                                                <td>---</td>
+                                                <td>----</td>
+                                                <td>----</td>
+                                                <td> 
+                                                    <Link to={{pathname: `/admin/${this.props.match.params.slug}/local/${this.props.match.params.id}`}}>
+                                                         <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
+                                                             <i className="ni ni-bold-right"/>
+                                                         </Button>
+                                                    </Link>
+                                                </td>
+                                            </tr>   
                                     </tbody>
                                 </Table>
                             </CardBody>

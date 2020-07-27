@@ -10,6 +10,7 @@ Table,
 Form,
 FormGroup,
 Container,
+Label,
 Input,
 Row,
 Col,
@@ -19,14 +20,14 @@ import api from "api/api.js"
 import Header from "components/Headers/Header.js";
 
 
-class StaffsDetails extends React.Component{
+class ProductDetails extends React.Component{
     constructor (props){
         super(props);
-        api.get(`/p/${this.props.match.params.slug}/staffs/${this.props.match.params.id}`).then(res => {
-            this.setState({staffs: res.data})
+        api.get(`/p/${this.props.match.params.slug}/products/${this.props.match.params.id}`).then(res => {
+            this.setState({products: res.data})
         })
         this.state = {
-          staffs: [],
+          products: [],
           disabled: true,
         };
         }
@@ -34,7 +35,7 @@ class StaffsDetails extends React.Component{
             this.setState( {disabled: !this.state.disabled} )
           }
     render(){
-        const {staffs} = this.state;
+        const {products} = this.state;
         return(
             <>
             <Header/>
@@ -53,7 +54,7 @@ class StaffsDetails extends React.Component{
                         <CardBody>
                         <Form>
                                 <h6 className="heading-small text-muted mb-4">
-                                Informações - Staff
+                                Informações - Produto
                                 </h6>
                                     <div className="pl-lg-4">
                                     <Row>
@@ -78,11 +79,11 @@ class StaffsDetails extends React.Component{
                                             <label
                                             className="form-control-label"
                                             >
-                                            Sobrenome
+                                            Descrição
                                             </label>
                                             <Input
                                             className="form-control-alternative"
-                                            placeholder="Sobrenome"
+                                            placeholder="Descrição"
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -95,15 +96,20 @@ class StaffsDetails extends React.Component{
                                             <label
                                             className="form-control-label"
                                             >
-                                            Email
+                                            Produto p/ Consumo
                                             </label>
-                                            <Input
-                                            className="form-control-alternative"    
-                                            placeholder="Email"
-                                            value=""
-                                            type="text"
-                                            disabled = {(this.state.disabled)? "disabled" : ""}
-                                            />
+                                            <FormGroup check disabled = {(this.state.disabled)? "disabled" : ""}>
+                                                <Label check>
+                                                    <Input type="radio" name="radio1" />{' '}
+                                                    Sim
+                                                </Label>
+                                                </FormGroup>
+                                                <FormGroup check disabled = {(this.state.disabled)? "disabled" : ""}>
+                                                <Label check>
+                                                    <Input type="radio" name="radio1" />{' '}
+                                                    Não
+                                                </Label>
+                                            </FormGroup>
                                         </FormGroup>
                                         </Col>
                                         <Col lg="6">
@@ -111,64 +117,11 @@ class StaffsDetails extends React.Component{
                                             <label
                                             className="form-control-label"
                                             >
-                                            Senha
+                                            Imagem
                                             </label>
                                             <Input
                                             className="form-control-alternative"
-                                            placeholder="Senha"
-                                            value="******"
-                                            type="text"
-                                            disabled = {(this.state.disabled)? "disabled" : ""}
-                                            />
-                                        </FormGroup>
-                                        </Col>
-                                    </Row>
-                                    </div>
-                                    <hr className="my-4" />
-                                    <h6 className="heading-small text-muted mb-4">
-                                    Adicional
-                                    </h6>
-                                    <div className="pl-lg-4">
-                                    <Row>
-                                        <Col lg="4">
-                                        <FormGroup>
-                                            <label
-                                            className="form-control-label"
-                                            >
-                                            Telefone
-                                            </label>
-                                            <Input
-                                            className="form-control-alternative"
-                                            placeholder="Telefone"
-                                            type="text"
-                                            disabled = {(this.state.disabled)? "disabled" : ""}
-                                            />
-                                        </FormGroup>
-                                        </Col>
-                                        <Col lg="4">
-                                        <FormGroup>
-                                            <label
-                                            className="form-control-label"
-                                            >
-                                            Tipo
-                                            </label>
-                                            <Input
-                                            className="form-control-alternative"
-                                            value=""
-                                            type="text"
-                                            disabled = {(this.state.disabled)? "disabled" : ""}
-                                            />
-                                        </FormGroup>
-                                        </Col>
-                                        <Col lg="4">
-                                        <FormGroup>
-                                            <label
-                                            className="form-control-label"
-                                            >
-                                            Status
-                                            </label>
-                                            <Input
-                                            className="form-control-alternative"
+                                            placeholder="Imagem URL"
                                             value=""
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
@@ -176,7 +129,6 @@ class StaffsDetails extends React.Component{
                                         </FormGroup>
                                         </Col>
                                     </Row>
-                                
                                     </div>
                                     <div className="text-center">
                                         <Row>
@@ -202,4 +154,4 @@ class StaffsDetails extends React.Component{
     }
 }
 
-export default StaffsDetails;
+export default ProductDetails;

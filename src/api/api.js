@@ -6,6 +6,7 @@ import axios from "axios";
         baseURL: `http://op.aurora.planoaeventos.com.br/api`,
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
             'Authorization': `Bearer ${token}`
         }
     });
