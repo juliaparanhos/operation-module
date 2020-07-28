@@ -103,7 +103,7 @@ class Index extends React.Component {
                                 {projects[project].map((nome,ind)=>
                                   <Link key={ind} to={{ pathname:`/admin/projetos/${nome.slug}/${nome.id}`}} >
                                     <h4 className="text-primary text-uppercase text-right" key={ind}>{nome.name} </h4>
-                                    <h4 className="text-primary text-uppercase text-right">{nome.id} </h4>
+                                    <h4 className="text-primary text-uppercase text-right" hidden>{nome.id} </h4>
                                     </Link>
                                 )}
                               </div> 

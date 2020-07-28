@@ -94,6 +94,8 @@ class CreateProject extends React.Component{
             console.log(token);
                // localStorage.setItem('operation_token', token);
                localStorage.setItem('operation_token', JSON.stringify(token));
+               this.props.history.push("/admin/index");
+               return;
           })
           .catch(e => {
             this.setState({message: e.message})

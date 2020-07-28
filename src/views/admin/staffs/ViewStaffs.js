@@ -18,18 +18,16 @@ import Header from "components/Headers/Header";
   
    
  class ViewStaffs extends React.Component{
-  componentDidMount(){
-        const { match: { params } } = this.props;
-       return api.get(`/p/${params.slug}/staffs`).then(res => {
-            console.log(res.data)
-            this.setState({staffs: res.data})
-        }).catch(error => {
-          console.log(JSON.parse(JSON.stringify(error)))
-        })
-}
     constructor (props){
         super(props);
-        this.componentDidMount = this.componentDidMount.bind(this);
+        const { match: { params } } = this.props;
+        api.get(`/p/${params.slug}/staffs`).then(res => {
+             console.log(res.data)
+             this.setState({staffs: res.data})
+             return res;
+         }).catch(error => {
+           console.log(JSON.parse(JSON.stringify(error)))
+         })
         this.state = {
           staffs: [],
           error: undefined
@@ -39,6 +37,7 @@ import Header from "components/Headers/Header";
     render(){
         const {staffs} = this.state;
        console.log(this.props)
+       console.log(this.state)
         return(
             <>
                 <Header/>
@@ -68,7 +67,11 @@ import Header from "components/Headers/Header";
                                         
                                     </thead>
                                     <tbody>
+
                                         
+                                        <tr>
+                                            <td></td>
+                                        </tr>
                                         
                                             {/*
                                                 Object.keys(staffs).map((staff,i) => (

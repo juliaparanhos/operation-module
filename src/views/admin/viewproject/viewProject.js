@@ -22,6 +22,7 @@ CardTitle
 import api from '../../../api/api.js';
 import bckg from '../../../assets/img/theme/staff-card.jpg';
 import bckg1 from '../../../assets/img/theme/staffs-card.jpg';
+import bckg2 from '../../../assets/img/theme/operation-card.jpg';
 
 import Header from "components/Headers/Header.js";
 
@@ -37,7 +38,7 @@ class viewProject extends React.Component{
         
         }
         handleRemoveProjects(id) {
-            api.delete(`/projects/${id}`).then(res => {
+            api.delete(`/projects/${this.props.match.params.id}`).then(res => {
                 this.setState({projects: res.data})
             })
            .catch(err => {
@@ -59,24 +60,9 @@ class viewProject extends React.Component{
                                 <div style={{marginTop: '-20px'}}>
                                     
                                 <Link to={{pathname: `/admin/editar-projeto/${this.props.match.params.id}`}}>
-                                                <Button size="sm" color="warning"> Editar </Button>
-                                                </Link>
-                                                
-                                        {
-                                        Object.keys(projects).map((project,i) => (
-                                            
-                                        <div key={i}>
-                                            {projects[project].map((nome,ind)=>
-                                            <Fragment key={ind}>
-                                               
-                                                <Button onClick={() => this.handleRemoveProjects(nome.id)} size="sm" color="danger"> Deletar </Button>
-                                                </Fragment>
-                                            )}
-                                        </div> 
-                                        
-                                        ))
-                                        }
-                              
+                                    <Button size="sm" color="warning"> Editar </Button>
+                                </Link> &nbsp;             
+                                <Button onClick={() => this.handleRemoveProjects(this.props.match.params.id)} size="sm" color="danger"> Deletar </Button>
                                 </div>
                             <Row className="justify-content-md-center mt-3">
                             <Col md="4">
@@ -110,7 +96,7 @@ class viewProject extends React.Component{
                             </Col>
                             <Col md="4">
                             <Card>
-                                <CardImg  src={bckg} style={{height: '196px'}} alt="Card image cap" />
+                                <CardImg className="" src={bckg2} style={{height: '196px'}} alt="Card image cap" />
                                     <CardBody>
                                         <CardTitle className="text-uppercase">Operação</CardTitle>
                                         <div className="text-center">

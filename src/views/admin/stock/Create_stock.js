@@ -210,10 +210,9 @@ class ProductCard extends React.Component{
         activeTab: 1,
         inventory: {
           categories:{
-            dresses:[],
-            shirts:[],
-            pants:[],
-            accessories:[]
+            Canetas:[],
+            Radios:[],
+            Fones:[],
           }
         },
         newItemForm: {

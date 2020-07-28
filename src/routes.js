@@ -28,6 +28,7 @@ import ProductsList from "views/admin/stock/Products_list.js";
 import StockIndex from "views/admin/stock/Index.js";
 import OperationIndex from "views/admin/operation/Index.js";
 import Stock from "views/admin/stock/Stock.js";
+import TableOperation from "views/home/TableOperation.js"
 import NotFound from "notfound.js"
 
 var routes = [
@@ -54,6 +55,11 @@ var routes = [
    // icon: "ni ni-key-25 text-info",
     component: Login,
     layout: "/auth"
+  },
+  {
+    path: "/:slug/operacao",
+    component: TableOperation,
+    layout: "/admin"
   },
   {
     path: "/:slug/login",
