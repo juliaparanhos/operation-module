@@ -38,6 +38,7 @@ import Header from "components/Headers/Header";
         const {staffs} = this.state;
        console.log(this.props)
        console.log(this.state)
+       console.log(window.location.href)
         return(
             <>
                 <Header/>

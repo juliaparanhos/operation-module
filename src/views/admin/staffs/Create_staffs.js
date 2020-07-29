@@ -93,20 +93,14 @@ class CreateStaff extends React.Component{
         };
         console.log(JSON.stringify(dataToSend))
         var token = JSON.parse(localStorage.getItem('operation_token'))['access_token']
-        api.get('/projects').then(res => {
-            this.setState({projects: res.data})
-
-    })
-
-    
-    fetch(`http://op.aurora.planoaeventos.com.br/api/p/$${this.props.match.params.slug}/staffs`,{
-        method: 'POST',
-        body: JSON.stringify(dataToSend),
-        headers: new Headers ({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',  
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }),
+        fetch(`http://op.aurora.planoaeventos.com.br/api/p/$${this.props.match.params.slug}/staffs`,{
+            method: 'POST',
+            body: JSON.stringify(dataToSend),
+            headers: new Headers ({
+            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',  
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+            }),
     }).then(response => {
         if(response.ok) {
           return response.json()
@@ -115,8 +109,9 @@ class CreateStaff extends React.Component{
       })
       .then(token => {
         console.log(token);
-           // localStorage.setItem('operation_token', token);
            localStorage.setItem('operation_token', JSON.stringify(token));
+           this.props.history.push(`/admin/projetos/${this.props.match.params.slug}/staffs`);
+           return;
       })
       .catch(e => {
         this.setState({message: e.message})
@@ -236,8 +231,8 @@ class CreateStaff extends React.Component{
                                                 onChange={this.handleTypeChange}
                                                 > 
                                                 <option> --- </option>
-                                                <option value="Admin"> Admin </option>
-                                                <option value="Moderador"> Moderador </option>
+                                                <option value="1"> Admin </option>
+                                                <option value="0"> Moderador </option>
                                                 </Input>
                                             </FormGroup>
                                             </Col>

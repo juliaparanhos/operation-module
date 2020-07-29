@@ -1,5 +1,6 @@
 /*eslint-disable*/
 import Index from "views/home/Index.js";
+import IndexStaff from "views/staff/home/IndexStaff.js";
 import Register from "views/admin/access/Register.js";
 import Login from "views/admin/access/Login.js";
 import LoginStaff from "views/staff/access/Login_Staff.js";
@@ -65,6 +66,11 @@ var routes = [
     path: "/:slug/login",
     component: LoginStaff,
     layout: "/auth"
+  },
+  {
+    path: "/:slug/index/staff",
+    component: IndexStaff,
+    layout: "/admin"
   },
   {
     path: "/:slug/definir-estoque",

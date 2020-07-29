@@ -88,33 +88,6 @@ class Login extends React.Component {
       password:  e.target.value
     })
   }
-  /*constructor(props){
-    super(props);
-     this.state = {
-       message: this.props.location.state?this.props.location.state.message: '',
-     };
-  }
-  login = () => {
-    const data = {email: this.email, password: this.password};
-
-    api.post('/auth/login', data)
-    .then(response => {
-      console.log(response);
-      if(response.ok) {
-        return response.json()
-      }
-      throw new Error("Login invalido");
-    })
-    .then(TOKEN_KEY => {
-      localStorage.setItem('@operation-token', TOKEN_KEY);
-      this.props.history.push("/admin/index");
-      return;
-    })
-    .catch(e => {
-      this.setState({message: e.message});
-    });
-  }
-  */
 
   render() {
     return (

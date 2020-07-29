@@ -44,37 +44,32 @@ class LoginStaff extends React.Component {
     
     };
     console.log(JSON.stringify(dataToSend))
-
-    api.get('/projects').then(res => {
-        this.setState({projects: res.data})
-       Object.keys(this.state.projects).map((project,i) => (
-              <div key={i}>
-                  {this.state.projects[project].map((use)=>
-                      fetch(`http://op.aurora.planoaeventos.com.br/api/auth/${use.slug}/login`, {
-                        //credentials: 'include',
-                        method: 'POST',
-                        body: JSON.stringify(dataToSend),
-                        headers: {
-                          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-                          'Content-Type': 'application/json',
-                          //'Authorization': 'Bearer' +  'operation_token',
-                        },
-                      })
-                      .then(response => response.json())
-                      .then(responseJson => {
-                        console.log(responseJson);
-                          if(responseJson.success){
-                            localStorage.setItem('operation_token', responseJson.token);
-                          }
-                       // console.log(response.json())
-                      })
-                  )}
-              </div>                
-          )
-     )
-       
-        })
-    
+    fetch(`http://op.aurora.planoaeventos.com.br/api/auth/${this.props.match.params.slug}/login`, {
+      //credentials: 'include',
+      method: 'POST',
+      body: JSON.stringify(dataToSend),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer' +  'operation_token',
+      },
+    })
+    .then(response => {
+      if(response.ok) {
+        return response.json()
+      }
+      throw new Error("Login inválido")
+    })
+    .then(token => {
+      console.log(token);
+          // localStorage.setItem('operation_token', token);
+          localStorage.setItem('operation_token', JSON.stringify(token));
+          this.props.history.push(`/admin/${this.props.match.params.slug}/index/staff`);
+          return;
+    })
+    .catch(e => {
+      this.setState({message: e.message})
+    });
   }
 
   handleEmailChange(e){
@@ -89,6 +84,8 @@ class LoginStaff extends React.Component {
     })
   }
   render() {
+    console.log(this.props)
+    console.log(window.location.href)
     return (
       <>
         <Col lg="5" md="7">
@@ -150,24 +147,6 @@ class LoginStaff extends React.Component {
               </Form>
             </CardBody>
           </Card>
-          <Row className="mt-3">
-            <Col xs="6">
-              <a
-                className="text-light"
-                onClick={e => e.preventDefault()}
-              >
-                <small>Esqueceu a senha?</small>
-              </a>
-            </Col>
-            <Col className="text-right" xs="6">
-              <a
-                className="text-light"
-                onClick={e => e.preventDefault()}
-              >
-                <small>Nova conta</small>
-              </a>
-            </Col>
-          </Row>
         </Col>
       </>
     );

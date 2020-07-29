@@ -33,14 +33,6 @@ class Index extends React.Component {
     };
     
     }
-    handleRemoveProjects(id) {
-      api.delete(`/projects/${id}`).then(res => {
-          this.setState({projects: res.data})
-      })
-     .catch(err => {
-         console.log(err)
-     }) 
-  }
   render() {
     const { projects } = this.state;
     let estado 
