@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, {useState} from "react";
+import React, {Fragment} from "react";
 import {Link} from "react-router-dom";
 import {
 Button,
@@ -18,13 +18,6 @@ import api from "api/api.js";
 class Stock extends React.Component{
     constructor (props){
         super(props);
-          api.get('/projects').then(res => {
-          console.log(res.data)
-          this.setState({projects: res.data})
-          if (res.ok){
-            return res.json();
-          }
-          })
           api.get(`/p/${this.props.match.params.slug}/stock_storages`).then(res => {
             console.log(res.data)
             this.setState({stock: res.data})
@@ -33,13 +26,13 @@ class Stock extends React.Component{
               }
         })
         this.state = {
-          projects: [],
-          staffs: [],
           stock: [],
         };
         
         }
     render(){
+        const {stock} = this.state;
+
         return(
             <>
                 <Header/>
@@ -61,17 +54,32 @@ class Stock extends React.Component{
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr className="text-center text-dark">
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>---</td>
-                                            <td>
-                                                <Button color="danger" size="sm" style={{marginTop: '-8px'}}>
-                                                    <i className="ni ni-fat-delete"/>
-                                                </Button>
-                                            </td>
-                                        </tr>
+
+                                         {
+                                                Object.keys(stock).map((stocks,i) => (
+                                                
+                                                <Fragment key={i}>
+                                                    {stock[stocks].map((item)=> 
+                                                    <Fragment>
+                                                        <tr className="text-center">
+                                                            <td>{item.id}</td>
+                                                            <td>{item.product.name}</td>
+                                                            <td>{item.product.consumable}</td>
+                                                            <td>{item.quantity}</td>
+                                                            <td>
+                                                                    <Button color="danger" size="sm" style={{marginTop: '-8px'}}>
+                                                                        <i className="ni ni-fat-delete"/>
+                                                                    </Button>
+                                                            </td>
+                                                        </tr>
+                                                    </Fragment>    
+                                                   )}
+                                                   </Fragment> 
+                                                
+                                                ))
+                                                }  
+                                            
+                                    
                                     </tbody>
                                 </Table>
                             </CardBody>

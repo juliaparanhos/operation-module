@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {
 Button,
@@ -56,6 +56,8 @@ class TypeOccupationDetails extends React.Component{
                                 Informações - Tipo de Função
                                 </h6>
                                     <div className="pl-lg-4">
+                                    {Object.entries(occupationstypes).map(([key, occupationtype], i) => (
+                                    <Fragment key={i}>
                                     <Row>
                                         <Col lg="6">
                                         <FormGroup>
@@ -67,13 +69,14 @@ class TypeOccupationDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Nome"
-                                            value=""
+                                            defaultValue={occupationtype.name}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
                                         </FormGroup>
                                         </Col>
                                     </Row>
+                                    </Fragment>))}
                                     </div>
                                     <div className="text-center">
                                         <Row>

@@ -17,6 +17,7 @@ Col,
 CardTitle
 } from "reactstrap";
 import Header from "components/Headers/Header.js";
+import api from "api/api";
 
 class ProductCard extends React.Component{
     constructor(props){
@@ -184,7 +185,6 @@ class ProductCard extends React.Component{
           break;
       }
     }
-    
     render(){
       return(
         <div className='MyRouter'>
@@ -202,17 +202,21 @@ class ProductCard extends React.Component{
     );
   }
   
-  
+
   class InventoryManagementApp extends React.Component{
-    constructor(){
-      super();
+    constructor(props){
+      super(props);
+      api.get(`/p/${this.props.match.params.slug}/products`).then(res => {
+        this.setState({products: res.data})
+        if (res.ok){
+            return res.json();
+          }
+    })
       this.state = {
         activeTab: 1,
         inventory: {
           categories:{
-            Canetas:[],
-            Radios:[],
-            Fones:[],
+            products: []
           }
         },
         newItemForm: {
@@ -240,7 +244,7 @@ class ProductCard extends React.Component{
       
       product.category = decapitalize(product.category);
       let inventory = this.state.inventory;
-      inventory.categories[product.category].push(product);
+      inventory.categories.name[product.category].push(product);
       
       this.setState({inventory:inventory});
     }

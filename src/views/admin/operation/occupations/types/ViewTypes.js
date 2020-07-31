@@ -1,6 +1,6 @@
 
 /*eslint-disable*/
-import React  from "react";
+import React, {Fragment} from "react";
 import {Link} from "react-router-dom";
 import {
 Button,
@@ -20,7 +20,6 @@ class ViewTypesOccupation extends React.Component{
     constructor (props){
         super(props);
         api.get(`/p/${this.props.match.params.slug}/occupation_types`).then(res => {
-            console.log(JSON.stringify(res.data))
             this.setState({occupationstypes: res.data})
             if (res.ok){
                 return res.json();
@@ -52,18 +51,31 @@ class ViewTypesOccupation extends React.Component{
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    
+                                    {
+                                    Object.keys(occupationstypes).map((x,i) => (
+                                        
+                                    <> 
+                                    <Fragment key={i}>
+                                        {occupationstypes[x].map((occupationtype)=> 
+                                        <Fragment>
                                             <tr className="text-center text-dark" >
-                                                <td>---</td>
-                                                <td>---</td>
+                                                <td>{occupationtype.id}</td>
+                                                <td>{occupationtype.name}</td>
                                                 <td>
-                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/tipo-funcao/${this.props.match.params.id}`}}>
+                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/tipo-funcao/${occupationtype.id}`}}>
                                                          <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
                                                              <i className="ni ni-bold-right"/>
                                                          </Button>
                                                     </Link>
                                                 </td>
                                             </tr> 
+                                    </Fragment>    
+                                            )}
+                                        </Fragment> 
+                                        </> 
+                                        
+                                        ))
+                                        }        
                                     </tbody>
                                 </Table>
                             </CardBody>

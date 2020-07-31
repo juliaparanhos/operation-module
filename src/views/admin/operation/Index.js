@@ -19,21 +19,13 @@ import api from "api/api.js";
 class OperationIndex extends React.Component{
     constructor (props){
         super(props);
-          api.get('/projects').then(res => {
-          console.log(res.data)
-          this.setState({projects: res.data})
-          if (res.ok){
-            return res.json();
-          }
          
-          })
         this.state = {
           projects: [],
         };
         
         }
     render(){
-        const {projects} = this.state;
         return(
             <>
                 <Header/>

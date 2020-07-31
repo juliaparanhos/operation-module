@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {
 Button,
@@ -25,6 +25,9 @@ class ProductDetails extends React.Component{
         super(props);
         api.get(`/p/${this.props.match.params.slug}/products/${this.props.match.params.id}`).then(res => {
             this.setState({products: res.data})
+            if (res.ok){
+                return res.json();
+              }
         })
         this.state = {
           products: [],
@@ -46,7 +49,6 @@ class ProductDetails extends React.Component{
                         <Row className="align-items-center">
                             <Col xs="8">
                             <h3 className="mb-0">Staff - {this.props.match.params.slug} &nbsp;
-                                
                             </h3>
                             </Col>
                         </Row>
@@ -57,18 +59,16 @@ class ProductDetails extends React.Component{
                                 Informações - Produto
                                 </h6>
                                     <div className="pl-lg-4">
+                                    {Object.entries(products).map(([key, product], i) => (
+                                        <Fragment key={i}>
                                     <Row>
                                         <Col lg="6">
                                         <FormGroup>
-                                            <label
-                                            className="form-control-label"
-                                            >
-                                            Nome
-                                            </label>
+                                            <label className="form-control-label"> Nome </label>
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Nome"
-                                            value=""
+                                            defaultValue= {product.name}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -85,6 +85,7 @@ class ProductDetails extends React.Component{
                                             className="form-control-alternative"
                                             placeholder="Descrição"
                                             type="text"
+                                            defaultValue={product.description}
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
                                         </FormGroup>
@@ -98,18 +99,12 @@ class ProductDetails extends React.Component{
                                             >
                                             Produto p/ Consumo
                                             </label>
-                                            <FormGroup check disabled = {(this.state.disabled)? "disabled" : ""}>
-                                                <Label check>
-                                                    <Input type="radio" name="radio1" />{' '}
-                                                    Sim
-                                                </Label>
-                                                </FormGroup>
-                                                <FormGroup check disabled = {(this.state.disabled)? "disabled" : ""}>
-                                                <Label check>
-                                                    <Input type="radio" name="radio1" />{' '}
-                                                    Não
-                                                </Label>
-                                            </FormGroup>
+                                            <Input 
+                                            className="form-control-alternative"
+                                            type="text"
+                                            defaultValue={product.consumable}
+                                            disabled= {(this.state.disabled)? "disabled":""}
+                                            />
                                         </FormGroup>
                                         </Col>
                                         <Col lg="6">
@@ -122,13 +117,14 @@ class ProductDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Imagem URL"
-                                            value=""
+                                            defaultValue={product.image}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
                                         </FormGroup>
                                         </Col>
                                     </Row>
+                                    </Fragment>))}
                                     </div>
                                     <div className="text-center">
                                         <Row>

@@ -40,7 +40,6 @@ class CreateStaff extends React.Component{
           type: undefined,
           active: undefined,
           message: undefined,
-          projects: []
         };
       } 
 
@@ -88,17 +87,16 @@ class CreateStaff extends React.Component{
                 email: this.state.email,
                 password: this.state.password,
                 image: this.state.image,
-                type: this.state.string,
+                type: this.state.type,
                 active: this.state.active,
         };
         console.log(JSON.stringify(dataToSend))
         var token = JSON.parse(localStorage.getItem('operation_token'))['access_token']
-        fetch(`http://op.aurora.planoaeventos.com.br/api/p/$${this.props.match.params.slug}/staffs`,{
+        fetch(`http://op.aurora.planoaeventos.com.br/api/p/${this.props.match.params.slug}/staffs`,{
             method: 'POST',
             body: JSON.stringify(dataToSend),
             headers: new Headers ({
             'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',  
-            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
             }),
     }).then(response => {
@@ -113,12 +111,12 @@ class CreateStaff extends React.Component{
            this.props.history.push(`/admin/projetos/${this.props.match.params.slug}/staffs`);
            return;
       })
-      .catch(e => {
-        this.setState({message: e.message})
+      .catch(error => {
+        console.log(JSON.parse(JSON.stringify(error)))
       })
         
       }
-    render(){
+    render(){   
         return(
             <>
             <Header/>
@@ -180,8 +178,8 @@ class CreateStaff extends React.Component{
                                                 </label>
                                                 <Input
                                                 className="form-control-alternative"
-                                                placeholder="Nome"
-                                                type="email"
+                                                placeholder="Email"
+                                                type="text"
                                                 onChange={this.handleEmailChange}
                                                 />
                                             </FormGroup>

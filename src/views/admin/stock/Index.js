@@ -25,13 +25,6 @@ import api from "api/api.js";
 class StockIndex extends React.Component{
     constructor (props){
         super(props);
-          api.get('/projects').then(res => {
-          console.log(res.data)
-          this.setState({projects: res.data})
-          if (res.ok){
-            return res.json();
-          }
-        })
           api.get(`/p/${this.props.match.params.slug}/stock_storages`).then(res => {
             console.log(res.data)
             this.setState({stock: res.data})
@@ -40,7 +33,6 @@ class StockIndex extends React.Component{
               }
         })
         this.state = {
-          projects: [],
           stock: [],
         };
         

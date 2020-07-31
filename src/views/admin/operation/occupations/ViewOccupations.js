@@ -1,6 +1,6 @@
 
 /*eslint-disable*/
-import React, {useState} from "react";
+import React, {Fragment} from "react";
 import {Link} from "react-router-dom";
 import {
 Button,
@@ -20,7 +20,7 @@ class ViewPlaces extends React.Component{
     constructor (props){
         super(props);
         api.get(`/p/${this.props.match.params.slug}/occupations`).then(res => {
-            console.log(JSON.stringify(res.data))
+            console.log(res.data)
             this.setState({occupations: res.data})
             if (res.ok){
                 return res.json();
@@ -54,21 +54,29 @@ class ViewPlaces extends React.Component{
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    
+                                    {
+                                        Object.keys(occupations).map((x,i) => (
+                                        <Fragment key={i}>
+                                            {occupations[x].map((occupation)=> 
+                                            <Fragment>
                                             <tr className="text-center text-dark" >
-                                                <td>----</td>
-                                                <td>-----</td>
-                                                <td>-----</td>
-                                                <td>----</td>
+                                                <td>{occupation.id}</td>
+                                                <td>{occupation.name}</td>
+                                                <td>{occupation.description}</td>
+                                                <td>{occupation.type.name}</td>
                                                 <td>
-                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/funcao/${this.props.match.params.id}`}}>
+                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/funcao/${occupation.id}`}}>
                                                          <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
                                                              <i className="ni ni-bold-right"/>
                                                          </Button>
                                                     </Link>
                                                 </td>
                                             </tr>
-                                         
+                                        </Fragment>    
+                                                )}
+                                            </Fragment> 
+                                        ))
+                                        }
                                     </tbody>
                                 </Table>
                             </CardBody>

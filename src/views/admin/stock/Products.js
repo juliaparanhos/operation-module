@@ -65,7 +65,7 @@ class Products extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Descrição"
-                                            type="email"
+                                            type="text"
                                             />
                                         </FormGroup>
                                         </Col>
@@ -100,11 +100,15 @@ class Products extends React.Component{
                                             >
                                             Imagem
                                             </label>
-                                            <Input type="file" name="file" id="importimage" />
+                                            <Input 
+                                            className="form-control-alternative"
+                                            placeholder="Imagem URL"
+                                            type="text" />
                                         </FormGroup>
                                         </Col>
                                     </Row>
                                     </div>
+                                    <Button color="success"> Novo Produto</Button>
                                 </Form>
                             </CardBody>
                         </Card>

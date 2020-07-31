@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {
 Button,
@@ -55,7 +55,7 @@ import Header from "components/Headers/Header";
                                 </CardTitle>
                                 <Table hover responsive>
                                     <thead>
-                                        
+                                        <Fragment>
                                         <tr className="text-center text-dark">
                                             <th>Foto</th>
                                             <th>ID</th>
@@ -65,43 +65,39 @@ import Header from "components/Headers/Header";
                                             <th>Email</th>
                                             <th></th>
                                         </tr>
-                                        
+                                        </Fragment>
                                     </thead>
                                     <tbody>
-
                                         
-                                        <tr>
-                                            <td></td>
-                                        </tr>
-                                        
-                                            {/*
+                                            {
                                                 Object.keys(staffs).map((staff,i) => (
                                                     
                                                 <> 
-                                                <div key={i}>
-                                                    {staffs[staff].map((nome,ind)=> */
-                                                        <tr  className="text-center">
-                                                            <td  >---</td>
-                                                            <td  ></td>
-                                                            <td  ></td>
-                                                            <td  ></td>
-                                                            <td  >---</td>
-                                                            <td  ></td>
+                                                <Fragment key={i}>
+                                                    {staffs[staff].map((nome)=> 
+                                                    <Fragment>
+                                                        <tr className="text-center">
+                                                            <td>---</td>
+                                                            <td>{nome.id}</td>
+                                                            <td>{nome.type}</td>
+                                                            <td>{nome.name}</td>
+                                                            <td>{nome.phone}</td>
+                                                            <td>{nome.email}</td>
                                                             <td>
                                                                 <Link to={{pathname: `/admin/projetos/${this.props.match.params.slug}/staffs/${this.props.match.params.id}`}}>
                                                                     <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
                                                                         <i className="ni ni-bold-right"/>
                                                                     </Button>
                                                                 </Link> 
-                                                        
                                                             </td>
                                                         </tr>
-                                                   /* )}
-                                                   </div> 
+                                                    </Fragment>    
+                                                   )}
+                                                   </Fragment> 
                                                 </> 
                                                 
                                                 ))
-                                                    */}
+                                                }
                                         
                                     </tbody>
                                 </Table>

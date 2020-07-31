@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {
 Button,
@@ -56,6 +56,8 @@ class PlaceDetails extends React.Component{
                                 Informações - Local
                                 </h6>
                                     <div className="pl-lg-4">
+                                    {Object.entries(places).map(([key, place], i) => (
+                                        <Fragment key={i}>
                                     <Row>
                                         <Col lg="6">
                                         <FormGroup>
@@ -67,7 +69,7 @@ class PlaceDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Nome"
-                                            value=""
+                                            defaultValue={place.name}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -83,6 +85,7 @@ class PlaceDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Descrição"
+                                            defaultValue={place.description}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -100,7 +103,7 @@ class PlaceDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"    
                                             placeholder="Endereço"
-                                            value=""
+                                            defaultValue={place.address}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -116,7 +119,7 @@ class PlaceDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Imagem URL"
-                                            value=""
+                                            defaultValue={place.image}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -134,6 +137,7 @@ class PlaceDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Latitude"
+                                            defaultValue={place.latitude}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -148,7 +152,7 @@ class PlaceDetails extends React.Component{
                                             </label>
                                             <Input
                                             className="form-control-alternative"
-                                            value=""
+                                           defaultValue={place.longitude}
                                             type="text"
                                             placeholder="Logitude"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
@@ -156,6 +160,7 @@ class PlaceDetails extends React.Component{
                                         </FormGroup>
                                         </Col>
                                     </Row>
+                                    </Fragment>))}
                                     </div>
                                     <div className="text-center">
                                         <Row>

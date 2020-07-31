@@ -23,8 +23,8 @@ import imag from "assets/img/brand/planoa.png"
 
 
 class LoginStaff extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -32,6 +32,7 @@ class LoginStaff extends React.Component {
     this.state ={
       email: undefined, 
       password: undefined,
+      message: this.props.location.state?this.props.location.state.message: '',
     }
   }
 
@@ -84,8 +85,6 @@ class LoginStaff extends React.Component {
     })
   }
   render() {
-    console.log(this.props)
-    console.log(window.location.href)
     return (
       <>
         <Col lg="5" md="7">
@@ -98,11 +97,11 @@ class LoginStaff extends React.Component {
             <CardBody className="px-lg-5 py-lg-5">
               <div className="text-center text-muted mb-4">
                 <small>Conecte-se <br/><b>Staff</b></small>
-                {/*
+                {
                   this.state.message !== ''? (
                   <Alert color="danger" className="text-center">{this.state.message}</Alert>
                   ): ''
-                  */}
+                  }
               </div>
               <Form role="form" onSubmit={this.handleSubmit}>
                 <FormGroup className="mb-3">

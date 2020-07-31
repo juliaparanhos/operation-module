@@ -57,7 +57,9 @@ class viewProject extends React.Component{
                             <CardTitle className="font-weight-light" tag="h1">Projeto - {this.props.match.params.slug} </CardTitle>
                             <hr style={{marginTop: '-15px'}}/>
                                 <div style={{marginTop: '-20px'}}>
-                                    
+                                 <Link to={{pathname: `/auth/${this.props.match.params.slug}/login`}}>
+                                    <Button color="success" size="sm"> Login Page </Button>
+                                 </Link> &nbsp;  
                                 <Link to={{pathname: `/admin/editar-projeto/${this.props.match.params.id}`}}>
                                     <Button size="sm" color="warning"> Editar </Button>
                                 </Link> &nbsp;             
