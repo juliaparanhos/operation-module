@@ -36,9 +36,6 @@ import Header from "components/Headers/Header";
         }
     render(){
         const {staffs} = this.state;
-       console.log(this.props)
-       console.log(this.state)
-       console.log(window.location.href)
         return(
             <>
                 <Header/>
@@ -84,7 +81,7 @@ import Header from "components/Headers/Header";
                                                             <td>{nome.phone}</td>
                                                             <td>{nome.email}</td>
                                                             <td>
-                                                                <Link to={{pathname: `/admin/projetos/${this.props.match.params.slug}/staffs/${this.props.match.params.id}`}}>
+                                                                <Link to={{pathname: `/admin/projetos/${this.props.match.params.slug}/staffs/${nome.id}`}}>
                                                                     <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
                                                                         <i className="ni ni-bold-right"/>
                                                                     </Button>

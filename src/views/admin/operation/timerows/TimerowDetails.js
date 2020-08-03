@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React, {Fragment} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {
 Button,
@@ -19,26 +19,20 @@ CardTitle
 import api from "api/api.js"
 import Header from "components/Headers/Header.js";
 
-class CreateOccupation extends React.Component{
+class TimerowDetails extends React.Component{
     constructor(props){
-        super(props);
-        api.get(`/p/${this.props.match.params.slug}/occupation_types`).then(res => {
-            console.log(res.data)
-            this.setState({occupationstypes: res.data})
+        super(props)
+        api.get(`/p/${this.props.match.params.slug}/timerows/${this.props.match.params.id}`).then(res => {
+            this.setState({timerows: res.data})
             if (res.ok){
                 return res.json();
-                }
-        }) 
+            }
+        })
         this.state = {
-            occupationstypes: [],
+            timerows: [],
         }
-       
     }
-
- 
-
     render(){
-        const {occupationstypes} = this.state;
         return(
             <>
             <Header/>
@@ -48,15 +42,12 @@ class CreateOccupation extends React.Component{
                             <CardHeader className="bg-white border-0">
                                 <Row className="align-items-center">
                                     <Col xs="8">
-                                        <h3 className="mb-0"> Função - Operação </h3> 
+                                        <h3 className="mb-0"> Tabela de Horários - Operação </h3> 
                                    </Col>
                                 </Row>   
                             </CardHeader>
                             <CardBody>
                                 <Form>
-                                <h6 className="heading-small text-muted mb-4">
-                                    Adicionar Função
-                                </h6>
                                 <div className="pl-lg-4">
                                     <Row>
                                         <Col lg="6">
@@ -64,12 +55,12 @@ class CreateOccupation extends React.Component{
                                             <label
                                             className="form-control-label"
                                             >
-                                            Nome
+                                            Data inicial
                                             </label>
                                             <Input
                                             className="form-control-alternative"
-                                            placeholder="Nome"
-                                            type="text"
+                                            placeholder="Data inicial"
+                                            type="date"
                                             />
                                         </FormGroup>
                                         </Col>
@@ -78,12 +69,12 @@ class CreateOccupation extends React.Component{
                                             <label
                                             className="form-control-label"
                                             >
-                                            Descrição
+                                           Data final
                                             </label>
                                             <Input
                                             className="form-control-alternative"
-                                            placeholder="Descrição"
-                                            type="text"
+                                            placeholder="Data final"
+                                            type="date"
                                             />
                                         </FormGroup>
                                         </Col>
@@ -94,25 +85,18 @@ class CreateOccupation extends React.Component{
                                             <label
                                             className="form-control-label"
                                             >
-                                           Tipo
+                                           Intervalo
                                             </label>
                                             <Input 
                                              className="form-control-alternative"
-                                             type="select"
-                                             
-                                            >
-                                                {Object.entries(occupationstypes).map(([key,type], i) => (
-                                                <Fragment key={i}> 
-                                                    <option>---</option>
-                                                    <option value={type.id}>{type.name}</option>
-                                                </Fragment>
-                                                ))}
-                                               
-                                            </Input>
+                                             placeholder="Intervalo"
+                                             type="number" 
+                                            />
+                                            
                                         </FormGroup>
                                         </Col>
                                     </Row>
-                                    <Button color="success" type="submit">Nova Função</Button>
+                                    <Button color="success" type="submit">Confirmar</Button>
                                     </div>
                                 </Form>
                             </CardBody>
@@ -124,4 +108,4 @@ class CreateOccupation extends React.Component{
     }
 }
 
-export default CreateOccupation;
+export default TimerowDetails;

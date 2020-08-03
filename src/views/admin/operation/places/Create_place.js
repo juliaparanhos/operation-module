@@ -20,6 +20,100 @@ import api from "api/api.js"
 import Header from "components/Headers/Header.js";
 
 class CreatePlace extends React.Component{
+    constructor(props){
+        super(props)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleNameChange = this.handleNameChange.bind(this)
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
+        this.handleImageChange = this.handleImageChange.bind(this)
+        this.handleAddressChange = this.handleAddressChange.bind(this)
+        this.handleLatitudeChange = this.handleLatitudeChange.bind(this)
+        this.handleLongitudeChange = this.handleLongitudeChange.bind(this)
+        this.state = {
+            name: undefined, 
+            description: undefined,
+            image: undefined,
+            address: undefined,
+            latitude: undefined,
+            longitude: undefined,
+        };
+
+    }
+
+    handleNameChange(e){
+        this.setState({
+            name: e.target.value
+        })
+    }
+
+    handleDescriptionChange(e){
+        this.setState({
+            description: e.target.value
+        })
+    }
+
+    handleImageChange(e){
+        this.setState({
+            image: e.target.value
+        })
+    }
+
+    handleAddressChange(e){
+        this.setState({
+            address: e.target.value
+        })
+    }
+
+    handleLatitudeChange(e){
+        this.setState({
+            latitude: e.target.value
+        })
+    }
+
+    handleLongitudeChange(e){
+        this.setState({
+            longitude: e.target.value
+        })
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        let dataToSend = {
+            name: this.state.name,
+            description: this.state.description,
+            image: this.state.image,
+            address: this.state.address,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+        };
+        console.log(JSON.stringify(dataToSend))
+        var token = JSON.parse(localStorage.getItem('operation_token'))['access_token']
+        fetch(`http://op.aurora.planoaeventos.com.br/api/p/${this.props.match.params.slug}/places`,{
+            method: 'POST',
+            body: JSON.stringify(dataToSend),
+            headers: new Headers ({
+              'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',  
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            }),
+        })
+        .then(response => {
+            if(response.ok) {
+              return response.json()
+            }
+            throw new Error("Error ao criar")
+          })
+          .then(token => {
+            console.log(token);
+               // localStorage.setItem('operation_token', token);
+               localStorage.setItem('operation_token', JSON.stringify(token));
+               this.props.history.push(`/admin/${this.props.match.params.slug}/locais`);
+               return;
+          })
+          .catch(e => {
+            this.setState({message: e.message})
+          });
+    }
     render(){
         return(
             <>
@@ -35,7 +129,7 @@ class CreatePlace extends React.Component{
                                 </Row>   
                             </CardHeader>
                             <CardBody>
-                                <Form>
+                                <Form onSubmit={this.handleSubmit}>
                                 <h6 className="heading-small text-muted mb-4">
                                     Adicionar Local
                                 </h6>
@@ -51,6 +145,7 @@ class CreatePlace extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Nome"
+                                            onChange={this.handleNameChange}
                                             type="text"
                                             />
                                         </FormGroup>
@@ -65,6 +160,7 @@ class CreatePlace extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Descrição"
+                                            onChange={this.handleDescriptionChange}
                                             type="text"
                                             />
                                         </FormGroup>
@@ -81,6 +177,7 @@ class CreatePlace extends React.Component{
                                             <Input 
                                              className="form-control-alternative"
                                              placeholder="Endereço"
+                                             onChange={this.handleAddressChange}
                                              type="text" 
                                             />
                                             
@@ -93,7 +190,12 @@ class CreatePlace extends React.Component{
                                             >
                                             Imagem
                                             </label>
-                                            <Input type="file" name="file" id="importimage" />
+                                            <Input 
+                                            className="form-control-alternative" 
+                                            type="text"
+                                            onChange={this.handleImageChange}
+                                            placeholder="Imagem URL"
+                                             />
                                         </FormGroup>
                                         </Col>
                                     </Row>
@@ -108,6 +210,7 @@ class CreatePlace extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Latitude"
+                                            onChange={this.handleLatitudeChange}
                                             type="text"
                                             />
                                         </FormGroup>
@@ -122,6 +225,7 @@ class CreatePlace extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Longitude"
+                                            onChange={this.handleLongitudeChange}
                                             type="text"
                                             />
                                         </FormGroup>

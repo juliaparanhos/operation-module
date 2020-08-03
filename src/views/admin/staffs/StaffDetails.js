@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {
 Button,
@@ -24,6 +24,10 @@ class StaffsDetails extends React.Component{
         super(props);
         api.get(`/p/${this.props.match.params.slug}/staffs/${this.props.match.params.id}`).then(res => {
             this.setState({staffs: res.data})
+        })
+        api.get(`/p/${this.props.match.params.slug}/staffs/${this.props.match.params.id}/occupations`).then(res => {
+            console.log(res.data)
+            this.setState({occupationstaff: res.data})
         })
         this.state = {
           staffs: [],
@@ -56,6 +60,8 @@ class StaffsDetails extends React.Component{
                                 Informações - Staff
                                 </h6>
                                     <div className="pl-lg-4">
+                                    {Object.entries(staffs).map(([key, staff], i) => (
+                                       <Fragment key={i}>
                                     <Row>
                                         <Col lg="6">
                                         <FormGroup>
@@ -67,7 +73,7 @@ class StaffsDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Nome"
-                                            value=""
+                                            defaultValue={staff.name}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -78,11 +84,12 @@ class StaffsDetails extends React.Component{
                                             <label
                                             className="form-control-label"
                                             >
-                                            Sobrenome
+                                            Imagem URL
                                             </label>
                                             <Input
                                             className="form-control-alternative"
-                                            placeholder="Sobrenome"
+                                            placeholder="Imagem URL"
+                                            defaultValue={staff.image}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -100,7 +107,7 @@ class StaffsDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"    
                                             placeholder="Email"
-                                            value=""
+                                            defaultValue={staff.email}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -116,19 +123,19 @@ class StaffsDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Senha"
-                                            value="******"
+                                            defaultValue={staff.password}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
                                         </FormGroup>
                                         </Col>
                                     </Row>
-                                    </div>
+                                   
                                     <hr className="my-4" />
                                     <h6 className="heading-small text-muted mb-4">
                                     Adicional
                                     </h6>
-                                    <div className="pl-lg-4">
+                                   
                                     <Row>
                                         <Col lg="4">
                                         <FormGroup>
@@ -140,6 +147,7 @@ class StaffsDetails extends React.Component{
                                             <Input
                                             className="form-control-alternative"
                                             placeholder="Telefone"
+                                            defaultValue={staff.phone}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -154,7 +162,7 @@ class StaffsDetails extends React.Component{
                                             </label>
                                             <Input
                                             className="form-control-alternative"
-                                            value=""
+                                            defaultValue={staff.type}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -169,14 +177,14 @@ class StaffsDetails extends React.Component{
                                             </label>
                                             <Input
                                             className="form-control-alternative"
-                                            value=""
+                                            defaultValue={staff.active}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
                                         </FormGroup>
                                         </Col>
                                     </Row>
-                                
+                                    </Fragment>  ))}
                                     </div>
                                     <div className="text-center">
                                         <Row>

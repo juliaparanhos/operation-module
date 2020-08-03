@@ -118,11 +118,11 @@ class OperationIndex extends React.Component{
                                                 <h6 className="text-overflow m-0">Horários</h6>
                                             </DropdownItem>
                                                     <Fragment>
-                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}}/definir-tabela-horarios`}} tag={Link}>
+                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}/definir-tabela-horarios`}} tag={Link}>
                                                         <i className="ni ni-single-02" />
                                                         <span>Cadastrar</span>
                                                     </DropdownItem>
-                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}`}} tag={Link}>
+                                                    <DropdownItem to={{pathname: `/admin/${this.props.match.params.slug}/tabela-horarios`}} tag={Link}>
                                                         <i className="ni ni-settings-gear-65" />
                                                         <span>Visualizar</span>
                                                     </DropdownItem>

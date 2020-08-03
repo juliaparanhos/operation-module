@@ -13,6 +13,7 @@ import CreateStaff from "views/admin/staffs/Create_staffs.js";
 import CreatePlace from "views/admin/operation/places/Create_place.js";
 import CreateStock from "views/admin/stock/Create_stock.js";
 import CreateOccupation from "views/admin/operation/occupations/Create_occupation.js";
+import ViewTimerows from "views/admin/operation/timerows/ViewTimerows.js";
 import ViewTypes from "views/admin/operation/occupations/types/ViewTypes.js"
 import viewProject from "views/admin/viewproject/viewProject";
 import ViewStaffs from "views/admin/staffs/ViewStaffs.js";
@@ -21,6 +22,7 @@ import ViewOccupations from "views/admin/operation/occupations/ViewOccupations.j
 import OccupationDetails from "views/admin/operation/occupations/OccupationDetails.js";
 import StaffsDetails from "views/admin/staffs/StaffDetails.js";
 import TypeOccupationDetails from "views/admin/operation/occupations/types/TypeDetails.js";
+import TimerowDetails from "views/admin/operation/timerows/TimerowDetails.js";
 import ProjectDetails from "views/admin/viewproject/ProjectDetails.js";
 import PlaceDetails from "views/admin/operation/places/PlaceDetails.js";
 import ProductDetails from "views/admin/stock/ProductDetails.js";
@@ -175,6 +177,16 @@ var routes = [
   {
     path: "/:slug/definir-tabela-horarios",
     component: CreateTime,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/horario/:id",
+    component: TimerowDetails,
+    layout: "/admin"
+  },
+  {
+    path: "/:slug/tabela-horarios",
+    component: ViewTimerows,
     layout: "/admin"
   },
   {

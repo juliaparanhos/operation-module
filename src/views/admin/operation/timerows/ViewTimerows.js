@@ -16,22 +16,21 @@ CardTitle
 import Header from "components/Headers/Header.js";
 import api from "api/api.js";
 
-class ViewTypesOccupation extends React.Component{
-    constructor (props){
-        super(props);
-        api.get(`/p/${this.props.match.params.slug}/occupation_types`).then(res => {
-            this.setState({occupationstypes: res.data})
+class ViewTimerows extends React.Component{
+    constructor(props){
+        super(props)
+        api.get(`/p/${this.props.match.params.slug}/timerows`).then(res => {
+            this.setState({timerows: res.data})
             if (res.ok){
                 return res.json();
-                }
+            }
         })
         this.state = {
-          occupationstypes: [],
-        };
-        
+            timerows: [],
         }
+    }
     render(){
-        const {occupationstypes} = this.state;
+        const {timerows} = this.state;
         return(
             <>
                 <Header/>
@@ -40,29 +39,33 @@ class ViewTypesOccupation extends React.Component{
                         <Card>
                             <CardBody>
                                 <CardTitle className="font-weight-light" tag="h1">
-                                    Funções - {this.props.match.params.slug} &nbsp;
+                                    Lista de horários - {this.props.match.params.slug} &nbsp;
                                 </CardTitle>
                                 <Table hover responsive>
                                     <thead>
                                         <tr className="text-center" >
-                                            <th>ID</th>
+                                            <th>Inicio</th>
+                                            <th>Final</th>
+                                            <th>Data</th>
                                             <th>Nome</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     {
-                                    Object.keys(occupationstypes).map((x,i) => (
+                                    Object.keys(timerows).map((x,i) => (
                                         
                                     <> 
                                     <Fragment key={i}>
-                                        {occupationstypes[x].map((occupationtype, i)=> 
+                                        {timerows[x].map((time)=> 
                                         <Fragment>
                                             <tr className="text-center text-dark" >
-                                                <td>{occupationtype.id}</td>
-                                                <td>{occupationtype.name}</td>
+                                                <td>{time.date_start}</td>
+                                                <td>{time.date_end}</td>
+                                                <td>{time.day.date}</td>
+                                                <td>{time.day.name}</td>
                                                 <td>
-                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/tipo-funcao/${occupationtype.id}`}}>
+                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/horario/${time.id}`}}>
                                                          <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
                                                              <i className="ni ni-bold-right"/>
                                                          </Button>
@@ -86,4 +89,4 @@ class ViewTypesOccupation extends React.Component{
         )
     }
 }
-export default ViewTypesOccupation;
+export default ViewTimerows;

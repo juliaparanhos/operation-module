@@ -16,22 +16,23 @@ CardTitle
 import Header from "components/Headers/Header.js";
 import api from "api/api.js";
 
-class ViewTypesOccupation extends React.Component{
+class ViewStaffsOcup extends React.Component{
     constructor (props){
         super(props);
-        api.get(`/p/${this.props.match.params.slug}/occupation_types`).then(res => {
-            this.setState({occupationstypes: res.data})
+        api.get(`/p/${this.props.match.params.slug}/staffs/${this.props.match.params.id}/occupations`).then(res => {
+            console.log(res.data)
+            this.setState({occupationstaff: res.data})
             if (res.ok){
                 return res.json();
-                }
+            }
         })
         this.state = {
-          occupationstypes: [],
+          occupationstaff: [],
         };
         
         }
     render(){
-        const {occupationstypes} = this.state;
+        const {occupationstaff} = this.state;
         return(
             <>
                 <Header/>
@@ -47,35 +48,35 @@ class ViewTypesOccupation extends React.Component{
                                         <tr className="text-center" >
                                             <th>ID</th>
                                             <th>Nome</th>
-                                            <th></th>
+                                            <th>Descrição</th>
+                                            <th>Tipo</th>
+                                            <th>Opções</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     {
-                                    Object.keys(occupationstypes).map((x,i) => (
-                                        
-                                    <> 
-                                    <Fragment key={i}>
-                                        {occupationstypes[x].map((occupationtype, i)=> 
-                                        <Fragment>
+                                        Object.keys(occupations).map((x,i) => (
+                                        <Fragment key={i}>
+                                            {occupations[x].map((occupation)=> 
+                                            <Fragment>
                                             <tr className="text-center text-dark" >
-                                                <td>{occupationtype.id}</td>
-                                                <td>{occupationtype.name}</td>
+                                                <td>{occupation.id}</td>
+                                                <td>{occupation.name}</td>
+                                                <td>{occupation.description}</td>
+                                                <td>{occupation.type.name}</td>
                                                 <td>
-                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/tipo-funcao/${occupationtype.id}`}}>
+                                                <Link to={{pathname: `/admin/${this.props.match.params.slug}/funcao/${occupation.id}`}}>
                                                          <Button size="sm" className="btn-link icon-shape rounded-circle" style={{height: '15px', marginTop: '-6px'}}> 
                                                              <i className="ni ni-bold-right"/>
                                                          </Button>
                                                     </Link>
                                                 </td>
-                                            </tr> 
-                                    </Fragment>    
-                                            )}
-                                        </Fragment> 
-                                        </> 
-                                        
+                                            </tr>
+                                        </Fragment>    
+                                                )}
+                                            </Fragment> 
                                         ))
-                                        }        
+                                        }
                                     </tbody>
                                 </Table>
                             </CardBody>
@@ -86,4 +87,4 @@ class ViewTypesOccupation extends React.Component{
         )
     }
 }
-export default ViewTypesOccupation;
+export default ViewStaffsOcup;

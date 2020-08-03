@@ -20,6 +20,20 @@ import api from "api/api.js"
 import Header from "components/Headers/Header.js";
 
 class CreateTime extends React.Component{
+    constructor(props){
+        super(props)
+       
+        this.state = {
+            timerows: [],
+        }
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        let dataToSend = {
+            data_s
+        }
+    }
     render(){
         return(
             <>

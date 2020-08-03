@@ -25,14 +25,68 @@ class TypeOccupationDetails extends React.Component{
         api.get(`/p/${this.props.match.params.slug}/occupation_types/${this.props.match.params.id}`).then(res => {
             this.setState({occupationstypes: res.data})
         })
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleNameChange = this.handleNameChange.bind(this) 
         this.state = {
           occupationstypes: [],
           disabled: true,
+          name: undefined,
+          message: undefined,
         };
         }
-        handleClik() {
+          handleClik() {
             this.setState( {disabled: !this.state.disabled} )
-          }
+            }
+        
+          handleNameChange(e){
+            this.setState({
+                name: e.target.value
+            })
+        }
+
+        handleSubmit(e){
+            e.preventDefault();
+            let dataToSend = {
+                name: this.state.name,
+            };
+            console.log(JSON.stringify(dataToSend))
+            var token = JSON.parse(localStorage.getItem('operation_token'))['access_token']
+            fetch(`http://op.aurora.planoaeventos.com.br/api/p/${this.props.match.params.slug}/occupation_types/${this.props.match.params.id}`,{
+                method: 'PUT',
+                body: JSON.stringify(dataToSend),
+                headers: new Headers ({
+                  'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',  
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                }),
+            })
+            .then(response => {
+                if(response.ok) {
+                  return response.json()
+                }
+                throw new Error("Error ao editar")
+              })
+              .then(token => {
+                console.log(token);
+                   // localStorage.setItem('operation_token', token);
+                   localStorage.setItem('operation_token', JSON.stringify(token));
+                   this.props.history.push(`/admin/${this.props.match.params.slug}/tipos-funcao`);
+                   return;
+              })
+              .catch(e => {
+                this.setState({message: e.message})
+              });
+        }  
+
+        handleDelete(id){
+           api.delete(`/p/${this.props.match.params.slug}/occupation_types/${this.props.match.params.id}`).then(res => {
+            this.setState({occupationstypes: res.data})
+            this.props.history.push(`/admin/${this.props.match.params.slug}/tipos-funcao`)
+            .catch(err => {
+                console.log(err)
+            }) 
+        })
+        }
     render(){
         const {occupationstypes} = this.state;
         return(
@@ -51,7 +105,7 @@ class TypeOccupationDetails extends React.Component{
                         </Row>
                         </CardHeader>
                         <CardBody>
-                        <Form>
+                        <Form onSubmit={this.handleSubmit}>
                                 <h6 className="heading-small text-muted mb-4">
                                 Informações - Tipo de Função
                                 </h6>
@@ -70,6 +124,7 @@ class TypeOccupationDetails extends React.Component{
                                             className="form-control-alternative"
                                             placeholder="Nome"
                                             defaultValue={occupationtype.name}
+                                            onChange={this.handleNameChange}
                                             type="text"
                                             disabled = {(this.state.disabled)? "disabled" : ""}
                                             />
@@ -87,7 +142,7 @@ class TypeOccupationDetails extends React.Component{
                                             <Button color="primary" onClick = {this.handleClik.bind(this)}>Editar</Button>
                                             </Col>
                                             <Col sm xs="4">
-                                            <Button color="danger">Excluir </Button>
+                                            <Button color="danger" onClick={() => this.handleDelete(this.props.match.params.id)}>Excluir </Button>
                                             </Col>
                                         </Row>
                                     </div>
